@@ -28,7 +28,7 @@ class M_referensi extends CI_Model {
 
 	function satuan($aColumns, $sWhere, $sOrder, $sLimit) {
 		$query = $this->db->query("
-			SELECT kd_satuan, uraian
+			SELECT kd_satuan, UPPER(uraian) as uraian
 			FROM reff_satuan
 			$sWhere
 			$sOrder

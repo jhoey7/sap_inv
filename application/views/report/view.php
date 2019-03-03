@@ -14,7 +14,7 @@ function getKeterangan($jml) {
             return "SESUAI";
         }
     }
-}
+} 
 if (in_array($tipe, array("mutasi_bb", "mutasi_hp", "mutasi_bs", "mutasi_pk","mutasi_bp","mutasi_bm"))) { ?>
     <div class="btn-group">
         <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
@@ -22,7 +22,7 @@ if (in_array($tipe, array("mutasi_bb", "mutasi_hp", "mutasi_bs", "mutasi_pk","mu
         </button>
         <ul class="dropdown-menu" role="menu">
             <li><a href="javascript:void(0);" onClick="print_report('<?php echo $tipe; ?>','pdf')">Export to PDF</a></li>
-            <li><a href="#">Export to XLS</a></li>
+            <li><a href="javascript:void(0);" onClick="print_report('<?php echo $tipe; ?>','xls')">Export to XLS</a></li>
         </ul>
     </div>
     <table class="table table-bordered mb30" width="100%" style="font-size: 12px;">

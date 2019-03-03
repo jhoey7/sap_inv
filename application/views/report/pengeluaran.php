@@ -7,7 +7,7 @@
 	  <p>List data yang ditampilkan adalah yang pengeluaran yang terjadi di bulan berjalan. Cari berdasarkan tanggal untuk mencari data lainnya.</p>
 	</div>
 	<div class="panel-body">
-	  <form class="form-inline" method="post" action="<?php echo site_url('report/pengeluaran'); ?>" onSubmit="view_report('frm-laporan'); return false;" id="frm-laporan" name="frm-laporan" autocomplete="off">
+	  <form class="form-inline" method="post" action="<?php echo site_url('report/pengeluaran'); ?>" onSubmit="view_report('frm_laporan'); return false;" id="frm_laporan" name="frm_laporan" autocomplete="off">
 	    <div class="form-group">
 	      <label class="sr-only" for="tgl-awal">Tanggal Awal</label>
 	      <input type="text" class="form-control date" id="tgl-awal" name="tgl_awal" placeholder="Tanggal Awal">
@@ -22,31 +22,40 @@
 	    </div>
 	    <button type="submit" class="btn btn-primary">Search</button>
 	    <button type="reset" class="btn btn-default">Reset</button>
-	  </form>
-	  <div class="table-responsive" style="padding-top: 10px;">
-			<table class="table table-bordered mb30 data-table-report" width="100%" url="<?php echo site_url('report/pengeluaran'); ?>" style="font-size: 11px;">
-				<thead>
-					<tr>
-						<th width="2%" style="text-align:center !important;" rowspan="2">#</th>
-						<th width="8%" style="text-align:center !important;" rowspan="2">Jenis Dok.</th>
-						<th width="5%" style="text-align:center !important;" rowspan="2">Aju</th>
-						<th width="10%" style="text-align:center !important;" colspan="2">Dok. Pabean</th>
-						<th width="12%" style="text-align:center !important;" colspan="2">Dok. Pengeluaran</th>
-						<th width="10%" style="text-align:center !important;" rowspan="2">Pembeli/Penerima</th>
-						<th width="10%" style="text-align:center !important;" rowspan="2">Kode Barang</th>
-						<th width="22%" style="text-align:center !important;" rowspan="2">Nama Barang</th>
-						<th width="5%" style="text-align:center !important;" rowspan="2">Satuan</th>
-						<th width="8%" style="text-align:center !important;" rowspan="2">Jumlah</th>
-						<th width="8%" style="text-align:center !important;" rowspan="2">Nilai Barang</th>
-					</tr>
-					<tr>
-						<th>No</th>
-						<th>Tgl</th>
-						<th>No</th>
-						<th>Tgl</th>
-					</tr>
-				</thead>
-			</table>
-		</div><!-- table-responsive -->
+		  <div class="table-responsive" style="padding-top: 10px;">
+			    <div class="btn-group">
+			        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+			            Action <span class="caret"></span>
+			        </button>
+			        <ul class="dropdown-menu" role="menu">
+			            <li><a href="javascript:void(0);" onClick="print_report('pengeluaran','pdf')">Export to PDF</a></li>
+			            <li><a href="javascript:void(0);" onClick="print_report('pengeluaran','xls')">Export to XLS</a></li>
+			        </ul>
+			    </div>
+				<table class="table table-bordered mb30 data-table-report" width="100%" url="<?php echo site_url('report/pengeluaran'); ?>" style="font-size: 11px;">
+					<thead>
+						<tr>
+							<th width="2%" style="text-align:center !important;" rowspan="2">#</th>
+							<th width="8%" style="text-align:center !important;" rowspan="2">Jenis Dok.</th>
+							<th width="5%" style="text-align:center !important;" rowspan="2">Aju</th>
+							<th width="10%" style="text-align:center !important;" colspan="2">Dok. Pabean</th>
+							<th width="12%" style="text-align:center !important;" colspan="2">Dok. Pengeluaran</th>
+							<th width="10%" style="text-align:center !important;" rowspan="2">Pembeli/Penerima</th>
+							<th width="10%" style="text-align:center !important;" rowspan="2">Kode Barang</th>
+							<th width="22%" style="text-align:center !important;" rowspan="2">Nama Barang</th>
+							<th width="5%" style="text-align:center !important;" rowspan="2">Satuan</th>
+							<th width="8%" style="text-align:center !important;" rowspan="2">Jumlah</th>
+							<th width="8%" style="text-align:center !important;" rowspan="2">Nilai Barang</th>
+						</tr>
+						<tr>
+							<th>No</th>
+							<th>Tgl</th>
+							<th>No</th>
+							<th>Tgl</th>
+						</tr>
+					</thead>
+				</table>
+			</div><!-- table-responsive -->
+		</form>
 	</div><!-- panel-body -->
 </div>

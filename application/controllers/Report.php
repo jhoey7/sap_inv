@@ -312,174 +312,230 @@ class Report extends CI_Controller {
 	        $all = $this->input->post("all");
 
 			$this->load->model('m_report','model');
-			$sql = $this->model->mutasi($tipe, $tgl_awal, $tgl_akhir, $all);
-            if ($sql) {				
-				if($all) {
-					$query = $this->db->query(str_replace("|","",$sql));	
-					$rs = $query->result_array();
-					foreach($rs as $dt) {
-						$valin = $valin."'".$dt["kd_barang"]."'," ;
-						$inarray[] = $dt["kd_barang"];
-					}
-					$indata = substr($valin,0,strlen($valin)-1);
-					if(!$indata) $indata="''";
-					if($tipe=="mutasi_bb") $jndata = " WHERE jns_brg = '1'";
-					if($tipe=="mutasi_bp") $jndata = " WHERE jns_brg = '2'";
-					if($tipe=="mutasi_hp") $jndata = " WHERE jns_brg = '6'";
-					if($tipe=="mutasi_bm") $jndata = " WHERE jns_brg = '3'";
-					if($tipe=="mutasi_pk") $jndata = " WHERE jns_brg = '4'";
-					if($tipe=="mutasi_bs") $jndata = " WHERE jns_brg = '7'";
-	
-					$sql .= " UNION SELECT kd_brg as kd_barang | , jns_brg as jns_barang, nm_brg, kd_satuan, '' penyesuaian |
-							  FROM tm_barang ".$jndata;
-					if($indata!='') {
-						$sql .= " AND kd_brg NOT IN(".$indata.") ";	
-					}
-				}
-				#==================================================================================================
-				$this->baris = 100;
-				if(strpos(strtoupper($sql),"UNION") == false) {
-					$SQL_EXP = explode("|",$sql);
-					$SQL_EXP_TMP = $SQL_EXP[0].' '.$SQL_EXP[2];
-				} else {
-					$EXP_UNION = explode("UNION",$sql);
-                    $SQL_EXP_TMP = "";
-					foreach($EXP_UNION as $UNION) {
-						$SQL_EXP = explode("|",$UNION);
-						$SQL_EXP_TMP .= $SQL_EXP[0].' '.$SQL_EXP[2].' UNION ';
-					}
-					if(strpos(strtoupper($SQL_EXP_TMP),"ORDER") == false) {
-						$SQL_EXP_TMP = substr($SQL_EXP_TMP,0,-6);	
-					} else {			
-						$SQL_EXP_TMP = substr_replace($SQL_EXP_TMP,'',strpos(strtoupper($SQL_EXP_TMP),"ORDER"));						
-					}
-				} 
-
-				$table_count = $this->db->query("SELECT COUNT(kd_barang) AS JML FROM ($SQL_EXP_TMP) AS TBL");
-				if($table_count){
-					$table_count = $table_count->row();
-					$total_record = $table_count = $table_count->JML;
-				}else{
-					$total_record = 0;
-				}
-				$table_count = ceil($table_count / $this->baris);
-				$hal = $this->input->post('hal');
-				if($hal < 1) $hal = 1;
-				if($hal > $table_count) $hal = $table_count;
-				if($hal<=1){
-					$dari = 0;
-					$sampai = $this->baris;
-				}else{
-					$dari = ($hal - 1) * $this->baris;
-					$sampai = $this->baris;
-				}
-				$sql .= " LIMIT $dari, $sampai";
-
-				$datast = ($hal - 1); 
-				if($datast<1) $datast = 1;
-				else $datast = $datast * $this->baris + 1;
-				$dataen = $datast + $this->baris - 1;
-				if($total_record < $dataen) $dataen = $total_record;
-				if($total_record==0) $datast = 0;
-				
-				if($hal<=1)
-					$no = 1;			
-				else
-					$no = ($hal - 1) * $this->baris + 1;
-					
-				$out .='<tr class="head">
-							<th colspan="13">
-							<input type="hidden" class="tb_text" id="tb_view" value="'.$this->baris.'" readonly/> 
-							<span style="float:left; padding-top: 5px;">&nbsp;'.$this->baris.' Data Per Halaman. Menampilkan '.$datast.' - '.$dataen.' Dari '.number_format($total_record).' Data.</span>';
-				
-				if($total_record > $this->baris){ 
-					$actions = site_url()."/report/proses/".$tipe;
-					$prev = $hal-1;
-					$next = $hal+1;
-					$firsExec = "lap_pagging('".$actions."', 'view', '1', 'frm-laporan');";
-					$prevExec = "lap_pagging('".$actions."', 'view', '".$prev."', 'frm-laporan');";
-					$nextExec = "lap_pagging('".$actions."', 'view', '".$next."', 'frm-laporan');";
-					$lastExec = "lap_pagging('".$actions."', 'view', '".$total_record."', 'frm-laporan');";
-					$forgo = "lap_pagging('".$actions."', 'view', document.getElementById('tb_halfrm-laporan').value, 'frm-laporan');";
-					$out .="<span style=\"float: right;\">";
-					if ($hal != "1") {
-						$out .="<a href=\"javascript:void(0)\" onclick=\"".$firsExec."\" class=\"btn btn-xs btn-default\">First</a>&nbsp;";
-						$out .="<a href=\"javascript:void(0)\" onclick=\"".$prevExec."\" class=\"btn btn-xs btn-default\">Previous</a>&nbsp;";
-					} else {
-						$out .="<a href=\"javascript:void(0)\" class=\"btn btn-xs btn-default\" disabled=\"true\">First</a>&nbsp;";
-						$out .="<a href=\"javascript:void(0)\" class=\"btn btn-xs btn-default\" disabled=\"true\">Previous</a>&nbsp;";
-					}
-					
-					if ($hal != ($table_count)) {
-						$out .="<a href=\"javascript:void(0)\" onclick=\"".$nextExec."\" class=\"btn btn-xs btn-default\">Next</a>&nbsp;";
-						$out .="<a href=\"javascript:void(0)\" onclick=\"".$lastExec."\" class=\"btn btn-xs btn-default\">Last</a>&nbsp;";
-					} else {
-						$out .="<a href=\"javascript:void(0)\" class=\"btn btn-xs btn-default\" disabled=\"true\">Next</a>&nbsp;";
-						$out .="<a href=\"javascript:void(0)\" class=\"btn btn-xs btn-default\" disabled=\"true\">Last</a>&nbsp;";
-					}
-					$out .="</span>";
-				}else{
-					$out .="<input type=\"hidden\" class=\"tb_text\" id=\"tb_halfrmLaporan\" value=\"".$hal."\" ".$disabled."  ondblclick=\"".$nextExec."\" style=\"width:30px;text-align:right;\"/>"; 	
-				}
-					
-				$out .='</th></tr>';
-				#==================================================================================================
-				$rs = $this->db->query(str_replace("|","",$sql));	
-				$resultRow = $rs->result_array();
-            }
-            $tgl_stock = $this->model->get_tgl_stock($tgl_akhir);
-            $data = array(
-            	"tipe" 				=> $tipe,
-                "tgl_awal" 			=> $tgl_awal,
-                "tgl_akhir" 		=> $tgl_akhir,
-                "tgl_stock" 		=> $tgl_stock,
-                "resultData" 		=> $resultRow,
-                "all" 				=> $all,
-                "indata" 			=> $indata,
-                "inarray" 			=> $inarray,
-			  	"PAGING_TOP"		=> $out,
-			  	"PAGING_BOT"		=> $out,
-			 	"no"				=> $no,
-			 	"showpage" 			=> $showpage,
-				"halaman"			=> $hal,
-				"JUMPAGES"			=> $jml_page,
-				"jns_file"			=> $jns_file
-			);
-			if($jns_file == "pdf") {
-				error_reporting(E_ALL);
-				ini_set("display_errors", 1);
-				ini_set('memory_limit','-1');
-				set_time_limit(0); 
-				if($tipe = "mutasi_bb") $judul = "Mutasi Bahan Baku";
-				elseif($tipe = "mutasi_bp") $judul = "Mutasi Bahan Penolong";
-				elseif($tipe = "mutasi_hp") $judul = "Mutasi Hasil Produksi";
-				elseif($tipe = "mutasi_bm") $judul = "Mutasi Barang Modal";
-				elseif($tipe = "mutasi_pk") $judul = "Mutasi Peralatan Kantor";
-				elseif($tipe = "mutasi_bs") $judul = "Mutasi Barang Sisa & Scrap";
-
+			if($tipe == "pemasukan" || $tipe == "pengeluaran") { 		
+		        ini_set("display_errors", 1);
+		        ini_set('memory_limit', '-1');
+		        set_time_limit(0);
+		    	$tgl_awal = $this->input->post("tgl_awal");
+		    	$tgl_akhir = $this->input->post("tgl_akhir");
+		        $kd_dok = $this->input->post("kd_dok");
+				$data['data'] = $this->model->get_data($tipe);
+				$data['tipe'] = $tipe;
+				$data['jns_file'] = $jns_file;
 				$html = $this->load->view('report/print', $data, true);
-				$stylesheet = file_get_contents('assets/css/laporan.css');
-
-				$mpdf = new \Mpdf\Mpdf(array("mode"=>"utf-8","format"=>"A4-L","margin_top"=>25, "default_font_size"=>10));
-				$mpdf->ignore_invalid_utf8 = true; 
-				$mpdf->SetProtection(array('print'));
-				$mpdf->SetAuthor("kiteinventory");
-				$mpdf->SetCreator("kiteinventory");
-				$mpdf->list_indent_first_level = 0; 
-				$mpdf->SetDisplayMode('fullpage');
-				$mpdf->AliasNbPages('[pagetotal]');
-				$mpdf->SetHTMLHeader('<div align="justify">PT Mutiara Laut Abadi <br />Laporan '.$judul.'<br />
-					Periode '.date_format(date_create($tgl_awal), 'd-m-Y').' S.D '.date_format(date_create($tgl_akhir), 'd-m-Y').'<br />
-					</div><div align="right" style="padding-top: -20px;">Halaman {PAGENO} dari [pagetotal]</div>','0',true);
-				$mpdf->WriteHTML($stylesheet,1);
-				$mpdf->WriteHTML($html);
-				$mpdf->Output();
-				exit();
-			} elseif($jns_file=="xls") {
-				$this->cetakexcell($JUDUL,$html);	
+				if($jns_file == "pdf"){
+					$stylesheet = file_get_contents('assets/css/laporan.css');
+					$mpdf = new \Mpdf\Mpdf(array("mode"=>"utf-8","format"=>"A4-L","margin_top"=>25, "default_font_size"=>10));
+					$mpdf->ignore_invalid_utf8 = true; 
+					$mpdf->SetProtection(array('print'));
+					$mpdf->SetAuthor("kiteinventory");
+					$mpdf->SetCreator("kiteinventory");
+					$mpdf->list_indent_first_level = 0; 
+					$mpdf->SetDisplayMode('fullpage');
+					$mpdf->AliasNbPages('[pagetotal]');
+					$mpdf->SetHTMLHeader('<div align="justify">Kawasan Berikat PT Mutiara Laut Abadi <br />Laporan '.ucwords($tipe).' Barang Per DOkumen Pabean<br />
+						Periode '.date_format(date_create($tgl_awal), 'd-m-Y').' S.D '.date_format(date_create($tgl_akhir), 'd-m-Y').'<br />
+						</div><div align="right" style="padding-top: -20px;">Halaman {PAGENO} dari [pagetotal]</div>','0',true);
+					$mpdf->WriteHTML($stylesheet,1);
+					$mpdf->WriteHTML($html);
+					$mpdf->Output();
+					exit();
+				} else {
+					$judul = 'Laporan '.ucwords($tipe);
+					$this->cetakexcell($judul,$html);
+				}
 			} else {
-            	$this->load->view('report/view', $data);
-            }
+				$sql = $this->model->mutasi($tipe, $tgl_awal, $tgl_akhir, $all);
+	            if ($sql) {				
+					if($all) {
+						$query = $this->db->query(str_replace("|","",$sql));	
+						$rs = $query->result_array();
+						foreach($rs as $dt) {
+							$valin = $valin."'".$dt["kd_barang"]."'," ;
+							$inarray[] = $dt["kd_barang"];
+						}
+						$indata = substr($valin,0,strlen($valin)-1);
+						if(!$indata) $indata="''";
+						if($tipe=="mutasi_bb") $jndata = " WHERE jns_brg = '1'";
+						if($tipe=="mutasi_bp") $jndata = " WHERE jns_brg = '2'";
+						if($tipe=="mutasi_hp") $jndata = " WHERE jns_brg = '6'";
+						if($tipe=="mutasi_bm") $jndata = " WHERE jns_brg = '3'";
+						if($tipe=="mutasi_pk") $jndata = " WHERE jns_brg = '4'";
+						if($tipe=="mutasi_bs") $jndata = " WHERE jns_brg = '7'";
+		
+						$sql .= " UNION SELECT kd_brg as kd_barang | , jns_brg as jns_barang, nm_brg, kd_satuan, '' penyesuaian |
+								  FROM tm_barang ".$jndata;
+						if($indata!='') {
+							$sql .= " AND kd_brg NOT IN(".$indata.") ";	
+						}
+					}
+					#==================================================================================================
+					$this->baris = 100;
+					if(strpos(strtoupper($sql),"UNION") == false) {
+						$SQL_EXP = explode("|",$sql);
+						$SQL_EXP_TMP = $SQL_EXP[0].' '.$SQL_EXP[2];
+					} else {
+						$EXP_UNION = explode("UNION",$sql);
+	                    $SQL_EXP_TMP = "";
+						foreach($EXP_UNION as $UNION) {
+							$SQL_EXP = explode("|",$UNION);
+							$SQL_EXP_TMP .= $SQL_EXP[0].' '.$SQL_EXP[2].' UNION ';
+						}
+						if(strpos(strtoupper($SQL_EXP_TMP),"ORDER") == false) {
+							$SQL_EXP_TMP = substr($SQL_EXP_TMP,0,-6);	
+						} else {			
+							$SQL_EXP_TMP = substr_replace($SQL_EXP_TMP,'',strpos(strtoupper($SQL_EXP_TMP),"ORDER"));						
+						}
+					} 
+
+					$table_count = $this->db->query("SELECT COUNT(kd_barang) AS JML FROM ($SQL_EXP_TMP) AS TBL");
+					if($table_count){
+						$table_count = $table_count->row();
+						$total_record = $table_count = $table_count->JML;
+					}else{
+						$total_record = 0;
+					}
+					$table_count = ceil($table_count / $this->baris);
+					$hal = $this->input->post('hal');
+					if($hal < 1) $hal = 1;
+					if($hal > $table_count) $hal = $table_count;
+					if($hal<=1){
+						$dari = 0;
+						$sampai = $this->baris;
+					}else{
+						$dari = ($hal - 1) * $this->baris;
+						$sampai = $this->baris;
+					}
+					$sql .= " LIMIT $dari, $sampai";
+
+					$datast = ($hal - 1); 
+					if($datast<1) $datast = 1;
+					else $datast = $datast * $this->baris + 1;
+					$dataen = $datast + $this->baris - 1;
+					if($total_record < $dataen) $dataen = $total_record;
+					if($total_record==0) $datast = 0;
+					
+					if($hal<=1)
+						$no = 1;			
+					else
+						$no = ($hal - 1) * $this->baris + 1;
+						
+					$out .='<tr class="head">
+								<th colspan="13">
+								<input type="hidden" class="tb_text" id="tb_view" value="'.$this->baris.'" readonly/> 
+								<span style="float:left; padding-top: 5px;">&nbsp;'.$this->baris.' Data Per Halaman. Menampilkan '.$datast.' - '.$dataen.' Dari '.number_format($total_record).' Data.</span>';
+					
+					if($total_record > $this->baris){ 
+						$actions = site_url()."/report/proses/".$tipe;
+						$prev = $hal-1;
+						$next = $hal+1;
+						$firsExec = "lap_pagging('".$actions."', 'view', '1', 'frm-laporan');";
+						$prevExec = "lap_pagging('".$actions."', 'view', '".$prev."', 'frm-laporan');";
+						$nextExec = "lap_pagging('".$actions."', 'view', '".$next."', 'frm-laporan');";
+						$lastExec = "lap_pagging('".$actions."', 'view', '".$total_record."', 'frm-laporan');";
+						$forgo = "lap_pagging('".$actions."', 'view', document.getElementById('tb_halfrm-laporan').value, 'frm-laporan');";
+						$out .="<span style=\"float: right;\">";
+						if ($hal != "1") {
+							$out .="<a href=\"javascript:void(0)\" onclick=\"".$firsExec."\" class=\"btn btn-xs btn-default\">First</a>&nbsp;";
+							$out .="<a href=\"javascript:void(0)\" onclick=\"".$prevExec."\" class=\"btn btn-xs btn-default\">Previous</a>&nbsp;";
+						} else {
+							$out .="<a href=\"javascript:void(0)\" class=\"btn btn-xs btn-default\" disabled=\"true\">First</a>&nbsp;";
+							$out .="<a href=\"javascript:void(0)\" class=\"btn btn-xs btn-default\" disabled=\"true\">Previous</a>&nbsp;";
+						}
+						
+						if ($hal != ($table_count)) {
+							$out .="<a href=\"javascript:void(0)\" onclick=\"".$nextExec."\" class=\"btn btn-xs btn-default\">Next</a>&nbsp;";
+							$out .="<a href=\"javascript:void(0)\" onclick=\"".$lastExec."\" class=\"btn btn-xs btn-default\">Last</a>&nbsp;";
+						} else {
+							$out .="<a href=\"javascript:void(0)\" class=\"btn btn-xs btn-default\" disabled=\"true\">Next</a>&nbsp;";
+							$out .="<a href=\"javascript:void(0)\" class=\"btn btn-xs btn-default\" disabled=\"true\">Last</a>&nbsp;";
+						}
+						$out .="</span>";
+					}else{
+						$out .="<input type=\"hidden\" class=\"tb_text\" id=\"tb_halfrmLaporan\" value=\"".$hal."\" ".$disabled."  ondblclick=\"".$nextExec."\" style=\"width:30px;text-align:right;\"/>"; 	
+					}
+						
+					$out .='</th></tr>';
+					#==================================================================================================
+					$rs = $this->db->query(str_replace("|","",$sql));	
+					$resultRow = $rs->result_array();
+	            }
+	            $tgl_stock = $this->model->get_tgl_stock($tgl_akhir);
+				if($tipe == "mutasi_bb") $judul = "Mutasi Bahan Baku";
+				elseif($tipe == "mutasi_bp") $judul = "Mutasi Bahan Penolong";
+				elseif($tipe == "mutasi_hp") $judul = "Mutasi Hasil Produksi";
+				elseif($tipe == "mutasi_bm") $judul = "Mutasi Barang Modal";
+				elseif($tipe == "mutasi_pk") $judul = "Mutasi Peralatan Kantor";
+				elseif($tipe == "mutasi_bs") $judul = "Mutasi Barang Sisa & Scrap";
+
+	            $data = array(
+	            	"tipe" 			=> $tipe,
+	                "tgl_awal" 		=> $tgl_awal,
+	                "tgl_akhir" 	=> $tgl_akhir,
+	                "tgl_stock" 	=> $tgl_stock,
+	                "resultData" 	=> $resultRow,
+	                "all" 			=> $all,
+	                "indata" 		=> $indata,
+	                "inarray" 		=> $inarray,
+				  	"PAGING_TOP"	=> $out,
+				  	"PAGING_BOT"	=> $out,
+				 	"no"			=> $no,
+				 	"showpage" 		=> $showpage,
+					"halaman"		=> $hal,
+					"JUMPAGES"		=> $jml_page,
+					"jns_file"		=> $jns_file,
+					"judul"			=> $judul
+				);
+				if($jns_file == "pdf" || $jns_file == "xls") {
+					error_reporting(E_ALL);
+					ini_set("display_errors", 1);
+					ini_set('memory_limit','-1');
+					set_time_limit(0); 
+
+					$html = $this->load->view('report/print', $data, true);
+					if($jns_file == "pdf") {
+						$stylesheet = file_get_contents('assets/css/laporan.css');
+						$mpdf = new \Mpdf\Mpdf(array("mode"=>"utf-8","format"=>"A4-L","margin_top"=>25, "default_font_size"=>10));
+						$mpdf->ignore_invalid_utf8 = true; 
+						$mpdf->SetProtection(array('print'));
+						$mpdf->SetAuthor("kiteinventory");
+						$mpdf->SetCreator("kiteinventory");
+						$mpdf->list_indent_first_level = 0; 
+						$mpdf->SetDisplayMode('fullpage');
+						$mpdf->AliasNbPages('[pagetotal]');
+						$mpdf->SetHTMLHeader('<div align="justify">PT Mutiara Laut Abadi <br />Laporan '.$judul.'<br />
+							Periode '.date_format(date_create($tgl_awal), 'd-m-Y').' S.D '.date_format(date_create($tgl_akhir), 'd-m-Y').'<br />
+							</div><div align="right" style="padding-top: -20px;">Halaman {PAGENO} dari [pagetotal]</div>','0',true);
+						$mpdf->WriteHTML($stylesheet,1);
+						$mpdf->WriteHTML($html);
+						$mpdf->Output();
+						exit();
+					} else {
+						$this->cetakexcell($judul,$html);
+					}
+				} else {
+	            	$this->load->view('report/view', $data);
+	            }
+	        }
 		}
 	}
+
+	function cetakexcell($filename = "", $contents = "") {
+        if (!$this->session->userdata('LOGGED')) {
+            $this->index();
+            return;
+        }
+        $html .= '<style> td{mso-number-format:"\@";}</style>';
+        $html .= $contents;
+        $filename = str_replace(" ", "_", $filename) . ".xls";
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Cache-Control: private", false);
+        header("Content-Type: application/octet-stream");
+        header('Content-type: application/ms-excel');
+        header('Content-Disposition: attachment; filename=' . $filename);
+        header("Content-Transfer-Encoding: binary");
+        echo $html;
+    }
 }

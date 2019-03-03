@@ -8,12 +8,13 @@
 	</div>
 	<div class="panel-body">
 		<div class="table-responsive">
-			<table class="table table-hover mb30 data-table" width="100%" url="<?php echo site_url('users/role'); ?>" url-add="<?php echo site_url('users/add_role'); ?>">
+			<table class="table table-hover mb30 data-table" width="100%" url="<?php echo site_url('users/role'); ?>" url-add="<?php echo site_url('users/role/add'); ?>">
 				<thead>
 					<tr>
 						<th width="2%">#</th>
 						<th width="20%">Kode Role</th>
-						<th width="78%">Uraian Role</th>
+						<th width="70%">Uraian Role</th>
+						<th width="8%" class="action">&nbsp;</th>
 					</tr>
 				</thead>
 			</table>

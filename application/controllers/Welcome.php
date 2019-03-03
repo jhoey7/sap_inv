@@ -23,12 +23,6 @@ class Welcome extends CI_Controller {
 			$footers .= '<script src="'.base_url().'assets/js/jquery.cookies.js"></script>';
 			$footers .= '<script src="'.base_url().'assets/js/bootstrap-timepicker.min.js"></script>';
 			$footers .= '<script src="'.base_url().'assets/js/custom.js"></script>';
-			if($this->content=="") {
-				$this->content = $this->load->view('error');
-			} 
-			if($this->breadcrumbs == "") {
-				$this->breadcrumbs = array("title"=>"Home","icon"=>"home","title_child"=>"Dashboard","url"=>'report/pemasukan');
-			}
 			$this->load->model("m_menu");
 			$menu['menu'] = $this->m_menu->drawMenu();
 			$data = array(
@@ -37,13 +31,23 @@ class Welcome extends CI_Controller {
 				'_header_'		=> $this->load->view('header','',true),
 				'_menus_'		=> $this->load->view('menu',$menu,true),
 				'_breadcrumbs_' => $this->load->view('breadcrumbs',$this->breadcrumbs,true),
-				// '_content_' 	=> (grant()=="")?$this->load->view('error','',true):$this->content,
-				'_content_' 	=> $this->content,
+				'_content_' 	=> (grant()=="")?$this->load->view('error','',true):$this->content,
+				// '_content_' 	=> $this->content,
 				'_footers_' 	=> $footers
 			);
 			$this->parser->parse('main', $data);
 		}else{
 			$this->load->view('login');
 		}
+	} 
+
+	function dashboard() {		
+		if(!$this->session->userdata('LOGGED')) {
+			$this->index();
+			return;
+		}
+		$this->breadcrumbs = array("title"=>"Home","icon"=>"home","title_child"=>"Dashboard","url"=>'welcome/dashboard');
+		$this->content = $this->load->view('dashboard','',true);
+		$this->index();
 	}
 }

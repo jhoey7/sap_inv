@@ -82,6 +82,31 @@ class M_report extends CI_Model {
 					FROM reff_table 
 					WHERE reff_type = 'DOK_PABEAN' ".$where;
 			$return = $func->main->get_combobox($sql,"reff_code","reff_description",TRUE);
+		} elseif($type == "pemasukan" || $type == "pengeluaran") {
+			$tgl_awal = $this->input->post('tgl_awal');
+			$tgl_akhir = $this->input->post('tgl_akhir');
+			$kd_dok = $this->input->post('kd_dok');
+
+			$where = "";
+			if($type == "pemasukan") {
+				$where .= "WHERE a.tipe = 'GATE-IN'";
+			} elseif($type == "pengeluaran") {
+				$where .= "WHERE a.tipe = 'GATE-OUT'";
+			}
+			if($tgl_awal != "" && $tgl_akhir != "") {
+				$where .= " AND a.tgl_dok BETWEEN ".$this->db->escape($tgl_awal)." AND ".$this->db->escape($tgl_akhir);
+			} else {
+				$where .= " AND MONTH(a.tgl_dok) = MONTH(CURRENT_DATE()) AND YEAR(a.tgl_dok) = YEAR(CURRENT_DATE())";
+			}
+			if($kd_dok != "") {
+				$where .= " AND a.kd_dok = ".$this->db->escape($kd_dok);	
+			}
+			
+			$sql = "SELECT CONCAT('BC ',a.kd_dok) as kd_dok, a.car, a.no_dok, a.tgl_dok, a.no_dok_internal, a.tgl_dok_internal, b.nm_supplier,
+					a.kd_barang, c.nm_brg, a.kd_satuan, a.jml_satuan, a.hrg_barang
+					FROM tr_inout a INNER JOIN reff_supplier b ON a.kd_supplier = b.kd_supplier
+					INNER JOIN tm_barang c ON a.kd_barang = c.kd_brg ".$where;
+			$return = $this->db->query($sql)->result_array();
 		}
 		return $return;
 	}

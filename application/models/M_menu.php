@@ -9,6 +9,9 @@ class M_menu extends CI_Model {
 		$SQL = "SELECT A.MENU_ID, A.MENU_TITTLE, A.MENU_PARENT_ID, A.MENU_ICON, A.MENU_URL, 
 				A.MENU_TYPE, A.MENU_ACTIVE, A.MENU_HAVE_CHILD
 				FROM tm_menu A 
+				INNER JOIN tm_role_menu B ON B.MENU_ID = A.MENU_ID
+				INNER JOIN tm_user C ON C.USER_ROLE = B.ROLE_ID
+				WHERE C.ID = ".$this->session->userdata('ID')."
 				ORDER BY A.MENU_PARENT_ID, A.MENU_ORDER ASC";
 		$res = $this->db->query($SQL);
 		if($res->num_rows() > 0){

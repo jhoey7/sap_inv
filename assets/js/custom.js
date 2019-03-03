@@ -309,6 +309,11 @@ function load_table() {
    //info -> reset clear and padding
    $(".dataTables_info").css('clear', 'none');
    $(".dataTables_info").css('padding', '0');
+   jQuery("select").chosen({
+      'min-width': '100px',
+      'white-space': 'nowrap',
+      disable_search_threshold: 10
+  });
 }
 
 function load_table_report() {
@@ -466,9 +471,88 @@ function post_data(form) {
    }
 }
 
+function edit_data(id, _url) {
+   location.href = site_url + '/' + _url + '/' + id;
+}
+
 function print_report(tipe,jenis){
    document.frm_laporan.action = site_url + "/report/proses/"+tipe+"/"+jenis;
    document.frm_laporan.method = "POST";
    document.frm_laporan.target = "_blank";
    document.frm_laporan.submit();
+   if(tipe == "pemasukan" || tipe == "pengeluaran") {
+      document.frm_laporan.action = site_url + "/report/"+tipe;
+   } else {
+      document.frm_laporan.action = site_url + "/report/proses/"+tipe;
+   }
+}
+
+function delete_data(id, _url, form) { 
+   swal({
+      title:'Confirm',
+      text:'Apakah Anda yakin ingin menghapus data ini ?',
+      type:'info',
+      showCancelButton:true,
+      closeOnConfirm:true,
+      showLoaderOnConfirm:true,
+   },function(r){
+      if(r){
+         $.ajax({
+            type: 'POST',
+            url: site_url + '/' + _url,
+            data: {action : 'delete', id: id},
+            dataType: "json",  
+            success: function(data){
+               if(data.status == 'success') {
+                  jQuery.gritter.add({
+                     title: data.titlte,
+                     text: data.message,
+                     class_name: 'growl-success',
+                     sticky: false,
+                     time: 3000
+                  });
+                  setTimeout(function(){
+                     load_table();
+                  }, 3000);
+                  return false;
+               } else {
+                  jQuery.gritter.add({
+                     title: data.titlte,
+                     text: data.message,
+                     class_name: 'growl-danger',
+                     sticky: false,
+                     time: 3000
+                  });
+                  return false;
+               }
+            }
+         });
+      }else{
+         return false
+      }
+   });
+}
+
+function menucheckAll(formid){
+   if($("#checkAllmenu").attr('checked')=="checked") var checked = "checked";
+   else checked = false;
+   $("#"+formid).find(':checkbox').attr('checked', checked);   
+}
+function menucheckParent(formid,id){
+   if($("#checkmenuParent_"+id).attr('checked')=="checked") var checked = true;
+   else checked = false;
+   $("#"+formid + ' #checkmenuChild_'+id).attr('checked',checked);   
+}
+function menucheckChild(formid,id){ 
+   var numchecked = 0;
+   $(".checkmenuChild_"+id).each(function(index, element){
+      if($(this).attr('checked')=='checked'){
+         numchecked++;
+      }    
+    });
+   if(numchecked>0){
+      $("#"+formid).find('#checkmenuParent_'+id).attr('checked',true);  
+   }else{      
+      $("#"+formid).find('#checkmenuParent_'+id).attr('checked',false);    
+   }
 }
