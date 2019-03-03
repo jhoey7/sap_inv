@@ -113,6 +113,17 @@ class M_users extends CI_Model {
 				$this->db->where(array('id'=>$this->input->post('id')));
 				$ecex = $this->db->update("tm_user", $val);
 				$return = array("status"=>"success","message"=>"User Berhasil Diupdate.","titlte"=>"Success !!!","url"=>site_url('users/user'));
+			} elseif($type == "role") {
+				if($this->db->delete('tm_role_menu',array("ROLE_ID"=>$this->input->post("id")))) {
+					foreach($this->input->post('checkmenu') as $index=>$val){
+						$AKSES = $this->input->post('akses_'.$val);
+						$GROP_MENU["GROUP_GRANT_TYPE"] 	= strtoupper($AKSES[0]);
+						$GROP_MENU["GROUP_ID_MENU"] 	= $val;
+						$GROP_MENU["GROUP_ID"] 			= $this->input->post("id");
+						$this->db->insert("tm_role_menu", $GROP_MENU);
+					}
+				}
+				$return = array("status"=>"success","message"=>"Role Berhasil Diupdate.","titlte"=>"Success !!!","url"=>site_url('users/role'));
 			}
 		} elseif ($action == "delete") {
 			$this->load->library('Azdgcrypt');
@@ -121,6 +132,13 @@ class M_users extends CI_Model {
 				$this->db->where(array('id'=>$this->azdgcrypt->decrypt($id)));
 				$ecex = $this->db->delete("tm_user");
 				$return = array("status"=>"success","message"=>"User Berhasil Dihapus.","titlte"=>"Success !!!","url"=>site_url('users/user'));
+			} elseif($type == "role") {
+				$id = $this->input->post('id');
+				$this->db->where(array('kode_role'=>$this->azdgcrypt->decrypt($id)));
+				$this->db->delete("tm_role");
+				$this->db->where(array('role_id'=>$this->azdgcrypt->decrypt($id)));
+				$ecex = $this->db->delete("tm_menu_role");
+				$return = array("status"=>"success","message"=>"Role Berhasil Dihapus.","titlte"=>"Success !!!","url"=>site_url('users/role'));
 			}
 		}
 		return $return;
