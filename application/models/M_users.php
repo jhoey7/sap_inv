@@ -117,9 +117,9 @@ class M_users extends CI_Model {
 				if($this->db->delete('tm_role_menu',array("ROLE_ID"=>$this->input->post("id")))) {
 					foreach($this->input->post('checkmenu') as $index=>$val){
 						$AKSES = $this->input->post('akses_'.$val);
-						$GROP_MENU["GROUP_GRANT_TYPE"] 	= strtoupper($AKSES[0]);
-						$GROP_MENU["GROUP_ID_MENU"] 	= $val;
-						$GROP_MENU["GROUP_ID"] 			= $this->input->post("id");
+						$GROP_MENU["GRANT_TYPE"] 	= strtoupper($AKSES[0]);
+						$GROP_MENU["MENU_ID"] 	= $val;
+						$GROP_MENU["ROLE_ID"] 			= $this->input->post("id");
 						$this->db->insert("tm_role_menu", $GROP_MENU);
 					}
 				}
