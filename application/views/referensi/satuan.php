@@ -8,12 +8,12 @@
 	</div>
 	<div class="panel-body">
 		<div class="table-responsive">
-			<table class="table table-hover mb30 data-table" width="100%" url="<?php echo site_url('referensi/satuan'); ?>">
+			<table class="table table-hover mb30 data-table" style="font-size: 12px;" width="100%" url="<?php echo site_url('referensi/satuan'); ?>">
 				<thead>
 					<tr>
 						<th width="2%">#</th>
-						<th width="50%">Kode Satuan</th>
-						<th width="48%">Uraian Satuan</th>
+						<th width="28%">Kode Satuan</th>
+						<th width="70%">Uraian Satuan</th>
 					</tr>
 				</thead>
 			</table>

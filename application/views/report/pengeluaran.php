@@ -32,7 +32,7 @@
 			            <li><a href="javascript:void(0);" onClick="print_report('pengeluaran','xls')">Export to XLS</a></li>
 			        </ul>
 			    </div>
-				<table class="table table-bordered mb30 data-table-report" width="100%" url="<?php echo site_url('report/pengeluaran'); ?>" style="font-size: 11px;">
+				<table class="table table-bordered mb30 data-table-report" width="100%" url="<?php echo site_url('report/pengeluaran'); ?>" style="font-size: 10px;">
 					<thead>
 						<tr>
 							<th width="2%" style="text-align:center !important;" rowspan="2">#</th>

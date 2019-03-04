@@ -7,7 +7,7 @@
   <meta name="author" content="">
   <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png">
 
-  <title>NAMA PERUSAHAAN</title>
+  <title>IT INVENTORY</title>
 
   <link href="assets/css/style.default.css" rel="stylesheet">
   <link href="assets/sweetalert/sweetalert.css" rel="stylesheet">
@@ -36,18 +36,18 @@
                 
                 <div class="signin-info">
                     <div class="logopanel">
-                        <h1><span>[</span> bracket <span>]</span></h1>
+                        <h1><span>[</span> INVENTORY <span>]</span></h1>
                     </div><!-- logopanel -->
                 
                     <div class="mb20"></div>
                 
-                    <h5><strong>Welcome to IT Inventory Nama Perusahaan!</strong></h5>
+                    <h5><strong>Welcome to IT Inventory PT. Mutiara Laut Abadi</strong></h5>
                     <ul>
-                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> Fully Responsive Layout</li>
-                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> HTML5/CSS3 Valid</li>
-                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> Retina Ready</li>
-                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> WYSIWYG CKEditor</li>
-                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> and much more...</li>
+                        <li><i class="fa fa-map-marker mr5"></i> Jl. Pulau Buton KIM II</li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> Medan</li>
+                        <li><i class="fa fa-arrow-circle-o-right mr5"></i> Sumatera Utara</li>
+                        <li><i class="fa fa-phone mr5"></i> Tel. (+62 61) 6871 530</li>
+                        <li><i class="fa fa-phone mr5"></i> Fax. (+62 61) 6871 529</li>
                     </ul>
                 </div><!-- signin0-info -->
             
@@ -60,7 +60,7 @@
                 
                     <input type="text" class="form-control uname" name="username" placeholder="Username" mandatory="yes" id="username" />
                     <input type="password" class="form-control pword" name="password" placeholder="Password" mandatory="yes" id="password" />
-                    <a href="#"><small>Forgot Your Password?</small></a>
+                    <!-- <a href="#"><small>Forgot Your Password?</small></a> -->
                     <button type="submit" class="btn btn-success btn-block">Sign In</button>
                 </form>
             </div><!-- col-sm-5 -->
@@ -69,10 +69,10 @@
         
         <div class="signup-footer">
             <div class="pull-left">
-                &copy; 2019. All Rights Reserved. Company Name
+                &copy; 2019. All Rights Reserved.
             </div>
             <div class="pull-right">
-                Created By: <a href="#" target="_blank">Company Name</a>
+                Created By: <a href="#" target="_blank">PT. Mutiara Laut Abadi</a>
             </div>
         </div>
         

@@ -26,7 +26,7 @@
   <section>
     <div class="leftpanel">
       <div class="logopanel">
-          <h1><span>[</span> bracket <span>]</span></h1>
+          <h1><span>[</span> INVENTORY <span>]</span></h1>
       </div><!-- logopanel -->
     
       <div class="leftpanelinner">
