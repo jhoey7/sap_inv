@@ -18,6 +18,8 @@ USE `sap_inv_db`;
 
 /*Table structure for table `reff_jns_barang` */
 
+DROP TABLE IF EXISTS `reff_jns_barang`;
+
 CREATE TABLE `reff_jns_barang` (
   `KD_JNS` char(2) NOT NULL,
   `URAIAN` varchar(255) DEFAULT NULL,
@@ -47,6 +49,8 @@ insert  into `reff_jns_barang`(`KD_JNS`,`URAIAN`) values
 ('9','BARANG KONSUMSI');
 
 /*Table structure for table `reff_negara` */
+
+DROP TABLE IF EXISTS `reff_negara`;
 
 CREATE TABLE `reff_negara` (
   `KD_NEGARA` char(2) NOT NULL,
@@ -305,6 +309,8 @@ insert  into `reff_negara`(`KD_NEGARA`,`URAIAN_NEGARA`) values
 ('ZW','Zimbabwe');
 
 /*Table structure for table `reff_satuan` */
+
+DROP TABLE IF EXISTS `reff_satuan`;
 
 CREATE TABLE `reff_satuan` (
   `KD_SATUAN` char(3) NOT NULL,
@@ -2140,6 +2146,8 @@ insert  into `reff_satuan`(`KD_SATUAN`,`URAIAN`) values
 
 /*Table structure for table `reff_supplier` */
 
+DROP TABLE IF EXISTS `reff_supplier`;
+
 CREATE TABLE `reff_supplier` (
   `KD_SUPPLIER` varchar(20) NOT NULL,
   `NM_SUPPLIER` varchar(255) DEFAULT NULL,
@@ -2810,6 +2818,8 @@ insert  into `reff_supplier`(`KD_SUPPLIER`,`NM_SUPPLIER`,`ALMT_SUPPLIER`,`KD_NEG
 
 /*Table structure for table `reff_table` */
 
+DROP TABLE IF EXISTS `reff_table`;
+
 CREATE TABLE `reff_table` (
   `REFF_TYPE` varchar(255) NOT NULL,
   `REFF_CODE` varchar(255) NOT NULL,
@@ -2833,6 +2843,8 @@ insert  into `reff_table`(`REFF_TYPE`,`REFF_CODE`,`REFF_DESCRIPTION`) values
 
 /*Table structure for table `t_session` */
 
+DROP TABLE IF EXISTS `t_session`;
+
 CREATE TABLE `t_session` (
   `ID` varchar(40) COLLATE latin1_general_ci NOT NULL,
   `IP_ADDRESS` varchar(45) COLLATE latin1_general_ci NOT NULL,
@@ -2844,13 +2856,25 @@ CREATE TABLE `t_session` (
 /*Data for the table `t_session` */
 
 insert  into `t_session`(`ID`,`IP_ADDRESS`,`TIMESTAMP`,`DATA`) values 
-('7g933sdodp4ibpaegr08eof7e8erlmvr','::1',1551400521,'__ci_last_regenerate|i:1551400521;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"1\";URAIAN_ROLE|s:13:\"Administrator\";PASSWORD|s:3:\"123\";'),
-('7rch6v497b6p8q3gkhjk8u7j3ba0ukef','::1',1551400881,'__ci_last_regenerate|i:1551400881;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"1\";URAIAN_ROLE|s:13:\"Administrator\";PASSWORD|s:3:\"123\";'),
-('ktml7jka2do8e6bkgfmjc7o5e0v78agr','::1',1551401306,'__ci_last_regenerate|i:1551401306;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"1\";URAIAN_ROLE|s:13:\"Administrator\";PASSWORD|s:3:\"123\";'),
-('9mhcakb448pih2je67jh2ss8f6v5m9jv','::1',1551402138,'__ci_last_regenerate|i:1551402138;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"1\";URAIAN_ROLE|s:13:\"Administrator\";PASSWORD|s:3:\"123\";'),
-('g6q7s7oi13h2oikk3lj8rhb7gbte9gdb','::1',1551402138,'__ci_last_regenerate|i:1551402138;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"1\";URAIAN_ROLE|s:13:\"Administrator\";PASSWORD|s:3:\"123\";');
+('5d6kghbd1hk5cvf1eqf8h59go4iu0pdq','::1',1553499378,'__ci_last_regenerate|i:1553499378;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"2\";URAIAN_ROLE|s:5:\"Admin\";PASSWORD|s:3:\"123\";'),
+('mlstfjmsf1fkiehqb7f8dj3ha13aeknc','::1',1553499680,'__ci_last_regenerate|i:1553499680;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"2\";URAIAN_ROLE|s:5:\"Admin\";PASSWORD|s:3:\"123\";'),
+('e0c2s60uharj5bfurc6eudia0mjs3qp5','::1',1553500015,'__ci_last_regenerate|i:1553500015;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"2\";URAIAN_ROLE|s:5:\"Admin\";PASSWORD|s:3:\"123\";'),
+('ot0sibe390evknn6nuivb1f76bbju4ri','::1',1553500320,'__ci_last_regenerate|i:1553500320;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"2\";URAIAN_ROLE|s:5:\"Admin\";PASSWORD|s:3:\"123\";'),
+('bbvpo0i7lmo0lsjq1mpcgg93k3k7e6s8','::1',1553500660,'__ci_last_regenerate|i:1553500660;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"2\";URAIAN_ROLE|s:5:\"Admin\";PASSWORD|s:3:\"123\";'),
+('cs9vn330dsstjfg6hhd410bd7qj5sdvg','::1',1553501037,'__ci_last_regenerate|i:1553501037;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"2\";URAIAN_ROLE|s:5:\"Admin\";PASSWORD|s:3:\"123\";'),
+('u6fp46afs5deiq628sqiqcfma2u2h8n3','::1',1553501424,'__ci_last_regenerate|i:1553501424;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"2\";URAIAN_ROLE|s:5:\"Admin\";PASSWORD|s:3:\"123\";'),
+('9od005hhr9cpqau0jfedkt8gd165b5br','::1',1553501792,'__ci_last_regenerate|i:1553501792;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"2\";URAIAN_ROLE|s:5:\"Admin\";PASSWORD|s:3:\"123\";'),
+('e8mu3r2isrivpltgqiutt173gf59n4q6','::1',1553502224,'__ci_last_regenerate|i:1553502224;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"2\";URAIAN_ROLE|s:5:\"Admin\";PASSWORD|s:3:\"123\";'),
+('qj1kakg2pc79ek5trg04gi1088k1ckcj','::1',1553502569,'__ci_last_regenerate|i:1553502569;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"2\";URAIAN_ROLE|s:5:\"Admin\";PASSWORD|s:3:\"123\";'),
+('ava8pe39s78i42cvp42a584218ccj8ko','::1',1553502903,'__ci_last_regenerate|i:1553502903;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"2\";URAIAN_ROLE|s:5:\"Admin\";PASSWORD|s:3:\"123\";'),
+('g2svnrefih9sk109e1th3pkof34b8air','::1',1553503251,'__ci_last_regenerate|i:1553503251;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"2\";URAIAN_ROLE|s:5:\"Admin\";PASSWORD|s:3:\"123\";'),
+('tai9vri0dv7fkenjejcmq9nff7hocoq1','::1',1553506420,'__ci_last_regenerate|i:1553506420;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"2\";URAIAN_ROLE|s:5:\"Admin\";PASSWORD|s:3:\"123\";'),
+('pjri3bjqlhv9n5taja8jore2rd6a3qdg','::1',1553506921,'__ci_last_regenerate|i:1553506921;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"2\";URAIAN_ROLE|s:5:\"Admin\";PASSWORD|s:3:\"123\";'),
+('fuqui2gaidj8bmqb8uvcvod4c3fm3lie','::1',1553506925,'__ci_last_regenerate|i:1553506921;LOGGED|b:1;IP|s:3:\"::1\";ID|s:1:\"1\";USERNAME|s:13:\"administrator\";NAMA|s:22:\"Administrator Aplikasi\";ALAMAT|s:7:\"Jakarta\";TELEPON|s:12:\"087756789009\";EMAIL|s:23:\"administrator@gmail.com\";STATUS|s:1:\"1\";USER_ROLE|s:1:\"2\";URAIAN_ROLE|s:5:\"Admin\";PASSWORD|s:3:\"123\";');
 
 /*Table structure for table `tm_barang` */
+
+DROP TABLE IF EXISTS `tm_barang`;
 
 CREATE TABLE `tm_barang` (
   `ID` bigint(19) NOT NULL AUTO_INCREMENT,
@@ -3093,6 +3117,8 @@ insert  into `tm_barang`(`ID`,`KD_BRG`,`JNS_BRG`,`NM_BRG`,`KD_SATUAN`,`KD_HS`,`S
 
 /*Table structure for table `tm_menu` */
 
+DROP TABLE IF EXISTS `tm_menu`;
+
 CREATE TABLE `tm_menu` (
   `MENU_ID` int(11) NOT NULL AUTO_INCREMENT,
   `MENU_PARENT_ID` int(11) NOT NULL DEFAULT '0',
@@ -3105,12 +3131,12 @@ CREATE TABLE `tm_menu` (
   `MENU_HAVE_CHILD` enum('Y','N') DEFAULT 'N',
   `MENU_URL_TIPE` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`MENU_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tm_menu` */
 
 insert  into `tm_menu`(`MENU_ID`,`MENU_PARENT_ID`,`MENU_TITTLE`,`MENU_URL`,`MENU_ORDER`,`MENU_TYPE`,`MENU_ICON`,`MENU_ACTIVE`,`MENU_HAVE_CHILD`,`MENU_URL_TIPE`) values 
-(1,0,'Dashboard','',0,'A','home',NULL,'N',NULL),
+(1,0,'Dashboard','welcome/dashboard',0,'A','home','welcome','N',NULL),
 (2,0,'Referensi','referensi',1,'A','gear','referensi','Y',NULL),
 (3,0,'Users','users',2,'A','users','users','Y',NULL),
 (4,0,'Inventory','inventory',3,'A','suitcase','inventory','Y',NULL),
@@ -3130,24 +3156,76 @@ insert  into `tm_menu`(`MENU_ID`,`MENU_PARENT_ID`,`MENU_TITTLE`,`MENU_URL`,`MENU
 (18,5,'Mutasi Hasil Produksi','report/mutasi_hp',17,'A',NULL,'mutasi_hp','N',NULL),
 (19,5,'Mutasi Barang Modal','report/mutasi_bm',18,'A',NULL,'mutasi_bm','N',NULL),
 (20,5,'Mutasi Peralatan Kantor','report/mutasi_pk',19,'A',NULL,'mutasi_pk','N',NULL),
-(21,5,'Mutasi Sisa & Scrap','report/mutasi_bs',20,'A',NULL,'mutasi_bs','N',NULL);
+(21,5,'Mutasi Sisa & Scrap','report/mutasi_bs',20,'A',NULL,'mutasi_bs','N',NULL),
+(22,0,'Pemusnahan','pemusnahan/daftar',21,'A','trash-o','pemusnahan','N',NULL);
 
 /*Table structure for table `tm_role` */
 
+DROP TABLE IF EXISTS `tm_role`;
+
 CREATE TABLE `tm_role` (
-  `KODE_ROLE` char(1) NOT NULL,
+  `KODE_ROLE` int(11) NOT NULL AUTO_INCREMENT,
   `URAIAN` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`KODE_ROLE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tm_role` */
 
 insert  into `tm_role`(`KODE_ROLE`,`URAIAN`) values 
-('1','Administrator'),
-('2','Operator'),
-('3','Bea Cukai');
+(2,'Admin'),
+(3,'Beacukai');
+
+/*Table structure for table `tm_role_menu` */
+
+DROP TABLE IF EXISTS `tm_role_menu`;
+
+CREATE TABLE `tm_role_menu` (
+  `MENU_ID` int(11) NOT NULL,
+  `GRANT_TYPE` char(1) NOT NULL,
+  `ROLE_ID` int(11) NOT NULL,
+  PRIMARY KEY (`MENU_ID`,`GRANT_TYPE`,`ROLE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `tm_role_menu` */
+
+insert  into `tm_role_menu`(`MENU_ID`,`GRANT_TYPE`,`ROLE_ID`) values 
+(1,'W',2),
+(1,'W',3),
+(2,'R',2),
+(3,'R',2),
+(4,'R',2),
+(5,'R',2),
+(5,'R',3),
+(6,'W',2),
+(7,'W',2),
+(8,'W',2),
+(9,'W',2),
+(10,'W',2),
+(11,'W',2),
+(12,'W',2),
+(13,'W',2),
+(13,'W',3),
+(14,'W',2),
+(14,'W',3),
+(15,'W',2),
+(15,'W',3),
+(16,'W',2),
+(16,'W',3),
+(17,'W',2),
+(17,'W',3),
+(18,'W',2),
+(18,'W',3),
+(19,'W',2),
+(19,'W',3),
+(20,'W',2),
+(20,'W',3),
+(21,'W',2),
+(21,'W',3),
+(22,'W',2);
 
 /*Table structure for table `tm_stockopname` */
+
+DROP TABLE IF EXISTS `tm_stockopname`;
 
 CREATE TABLE `tm_stockopname` (
   `ID` bigint(19) NOT NULL AUTO_INCREMENT,
@@ -3499,6 +3577,8 @@ insert  into `tm_stockopname`(`ID`,`TGL_STOCK`,`KD_BRG`,`JNS_BRG`,`JML_STOCKOPNA
 
 /*Table structure for table `tm_user` */
 
+DROP TABLE IF EXISTS `tm_user`;
+
 CREATE TABLE `tm_user` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `USERNAME` varchar(30) DEFAULT NULL,
@@ -3508,20 +3588,22 @@ CREATE TABLE `tm_user` (
   `TELEPON` varchar(15) DEFAULT NULL,
   `EMAIL` varchar(50) DEFAULT NULL,
   `STATUS` enum('0','1') DEFAULT '1',
-  `USER_ROLE` char(1) DEFAULT NULL,
+  `USER_ROLE` int(11) DEFAULT NULL,
   `CREATED_TIME` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`),
   KEY `reff_role` (`USER_ROLE`),
   CONSTRAINT `reff_role` FOREIGN KEY (`USER_ROLE`) REFERENCES `tm_role` (`KODE_ROLE`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tm_user` */
 
 insert  into `tm_user`(`ID`,`USERNAME`,`PASSWORD`,`NAMA`,`AlAMAT`,`TELEPON`,`EMAIL`,`STATUS`,`USER_ROLE`,`CREATED_TIME`) values 
-(1,'administrator','$2y$10$kvpTKFQ40Qf2RGFo61ejYOJZcbr1PwzW.j2ejGZMmEhDznYTZhp9S','Administrator Aplikasi','Jakarta','087756789009','administrator@gmail.com','1','1','2019-02-23 15:55:33'),
-(6,'beacukai','$2y$10$rc5/V6XYRhIUYH4LnygYeOV46xvqooYzaQXxR60IccFKjuxkenguC','beacukai','Jakarta','087765667887','beacukai@gmail.com','1','3','2019-02-28 12:00:32');
+(1,'administrator','$2y$10$kvpTKFQ40Qf2RGFo61ejYOJZcbr1PwzW.j2ejGZMmEhDznYTZhp9S','Administrator Aplikasi','Jakarta','087756789009','administrator@gmail.com','1',2,'2019-02-23 15:55:33'),
+(9,'beacukai','$2y$10$1pMLbW5P25k6ACEk1U7beehgORDl4hQtjTNWYGOAbNOt0MNPS6EKq','Beacukai','Jakarta','129090','beacukai@gmail.com','1',3,'2019-03-03 17:18:14');
 
 /*Table structure for table `tr_inout` */
+
+DROP TABLE IF EXISTS `tr_inout`;
 
 CREATE TABLE `tr_inout` (
   `ID` bigint(19) NOT NULL AUTO_INCREMENT,
@@ -3544,6 +3626,7 @@ CREATE TABLE `tr_inout` (
   `KD_VALUTA` char(3) DEFAULT NULL,
   `NDPBM` decimal(38,4) DEFAULT NULL,
   `NO_PROSES` varchar(35) DEFAULT NULL,
+  `NO_PROSES_MASUK` text,
   `JNS_PROSES` varchar(10) DEFAULT NULL,
   `FLAG_PROSES` enum('0','1') DEFAULT '0',
   `KETERANGAN` varchar(255) DEFAULT NULL,
@@ -3559,25 +3642,27 @@ CREATE TABLE `tr_inout` (
 
 /*Data for the table `tr_inout` */
 
-insert  into `tr_inout`(`ID`,`TIPE`,`KD_DOK`,`CAR`,`NO_DOK`,`TGL_DOK`,`SERI_DOK`,`NO_DOK_INTERNAL`,`TGL_DOK_INTERNAL`,`KD_BARANG`,`JNS_BARANG`,`KD_SATUAN`,`JML_SATUAN`,`HRG_BARANG`,`KD_SUPPLIER`,`TGL_REALISASI`,`LOT_NUMBER`,`KD_VALUTA`,`NDPBM`,`NO_PROSES`,`JNS_PROSES`,`FLAG_PROSES`,`KETERANGAN`,`CREATED_TIME`) values 
-(1,'GATE-IN','23','0901092019201920000011111','164454','2019-01-05',1,'030628','2019-01-05','TCU-00001','8','PCE',8.0000,514.4500,'VI-0001','2019-01-05 19:48:01',NULL,'USD',9043.0000,NULL,NULL,'0',NULL,'2019-02-28 19:45:59'),
-(2,'GATE-IN','23','0901092019201920000011111','164454','2019-01-05',2,'030628','2019-01-05','CUK-00001','8','PCE',4.0000,78.9900,'VI-0001','2019-01-05 19:48:01',NULL,'USD',9043.0000,NULL,NULL,'0',NULL,'2019-02-28 19:50:45'),
-(3,'GATE-IN','23','0901092019201920000022222','164455','2019-01-05',1,'030629','2019-01-05','CUK-00001','8','PCE',9.0000,514.4500,'VI-0001','2019-01-05 19:48:01',NULL,'USD',9043.0000,NULL,NULL,'0',NULL,'2019-02-28 20:03:07'),
-(4,'GATE-IN','23','0901092019201920000022222','164455','2019-01-05',2,'030629','2019-01-05','TCU-00003','8','PCE',10.0000,78.9900,'VI-0001','2019-01-05 19:48:01',NULL,'USD',9043.0000,NULL,NULL,'0',NULL,'2019-02-28 20:06:02'),
-(5,'GATE-OUT','30','0901092019201920000033333','164457','2019-01-05',1,'030630','2019-01-05','BFF-0202-03','6','MC',3900.0000,56900.0000,'CE-0004','2019-01-05 19:48:01',NULL,'USD',9043.0000,NULL,NULL,'0',NULL,'2019-02-28 20:07:07'),
-(6,'GATE-IN','40','0901092019201920000044444','164726','2019-02-12',1,'1277/FEB/19/SJ/SH','2019-02-12','MCA-00001','8','PCE',5000.0000,15000000.0000,'VL-0045','2019-02-12 20:18:04',NULL,'IDR',1.0000,NULL,NULL,'0',NULL,'2019-02-28 20:16:06'),
-(7,'GATE-IN','40','0901092019201920000044444','164726','2019-02-12',2,'1277/FEB/19/SJ/SH','2019-02-12','STB-00002','8','PCE',30000.0000,2000000.0000,'VL-0045','2019-02-12 20:18:04',NULL,'IDR',1.0000,NULL,NULL,'0',NULL,'2019-02-28 20:18:19'),
-(8,'PROCESS_IN',NULL,NULL,NULL,NULL,1,NULL,NULL,'SPB-0000-01','1','KG',2.6650,NULL,NULL,'2019-02-03 01:41:36',NULL,NULL,NULL,'PD 1900001','MASUK','0','Generated By Add On (S1) RAJUNGAN','2019-03-01 01:41:50'),
-(9,'PROCESS_IN',NULL,NULL,NULL,NULL,2,NULL,NULL,'LMB-0000-01','1','KG',0.2240,NULL,NULL,'2019-02-03 01:41:36',NULL,NULL,NULL,'PD 1900001','MASUK','0','Generated By Add On (S1) RAJUNGAN','2019-03-01 01:42:29'),
-(10,'PROCESS_IN',NULL,NULL,NULL,NULL,3,NULL,NULL,'JPB-0000-01','1','KG',0.1040,NULL,NULL,'2019-02-03 01:41:36',NULL,NULL,NULL,'PD 1900001','MASUK','0','Generated By Add On (S1) RAJUNGAN','2019-03-01 01:43:28'),
-(11,'PROCESS_IN',NULL,NULL,NULL,NULL,4,NULL,NULL,'JBB-0000-02','1','KG',0.2330,NULL,NULL,'2019-02-03 01:41:36',NULL,NULL,NULL,'PD 1900001','MASUK','0','Generated By Add On (S1) RAJUNGAN','2019-03-01 01:44:03'),
-(12,'PROCESS_IN',NULL,NULL,NULL,NULL,5,NULL,NULL,'JBB-0000-01','1','KG',1.0400,NULL,NULL,'2019-02-03 01:41:36',NULL,NULL,NULL,'PD 1900001','MASUK','0','Generated By Add On (S1) RAJUNGAN','2019-03-01 01:44:43'),
-(13,'PROCESS_IN',NULL,NULL,NULL,NULL,6,NULL,NULL,'FLB-0000-01','1','KG',0.8200,NULL,NULL,'2019-02-03 01:41:36',NULL,NULL,NULL,'PD 1900001','MASUK','0','Generated By Add On (S1) RAJUNGAN','2019-03-01 01:45:20'),
-(14,'PROCESS_IN',NULL,NULL,NULL,NULL,7,NULL,NULL,'COB-0000-01','1','KG',0.1330,NULL,NULL,'2019-02-03 01:41:36',NULL,NULL,NULL,'PD 1900001','MASUK','0','Generated By Add On (S1) RAJUNGAN','2019-03-01 01:45:52'),
-(15,'PROCESS_IN',NULL,NULL,NULL,NULL,8,NULL,NULL,'CMB-0000-01','1','KG',2.5310,NULL,NULL,'2019-02-03 01:41:36',NULL,NULL,NULL,'PD 1900001','MASUK','0','Generated By Add On (S1) RAJUNGAN','2019-03-01 01:46:23'),
-(16,'PROCESS_IN',NULL,NULL,NULL,NULL,9,NULL,NULL,'BFB-0000-01','1','KG',0.9020,NULL,NULL,'2019-02-03 01:41:36',NULL,NULL,NULL,'PD 1900001','MASUK','0','Generated By Add On (S1) RAJUNGAN','2019-03-01 01:46:57');
+insert  into `tr_inout`(`ID`,`TIPE`,`KD_DOK`,`CAR`,`NO_DOK`,`TGL_DOK`,`SERI_DOK`,`NO_DOK_INTERNAL`,`TGL_DOK_INTERNAL`,`KD_BARANG`,`JNS_BARANG`,`KD_SATUAN`,`JML_SATUAN`,`HRG_BARANG`,`KD_SUPPLIER`,`TGL_REALISASI`,`LOT_NUMBER`,`KD_VALUTA`,`NDPBM`,`NO_PROSES`,`NO_PROSES_MASUK`,`JNS_PROSES`,`FLAG_PROSES`,`KETERANGAN`,`CREATED_TIME`) values 
+(1,'GATE-IN','23','0901092019201920000011111','164454','2019-01-01',1,'030628','2019-01-05','TCU-00001','8','PCE',8.0000,514.4500,'VI-0001','2019-01-01 19:48:01',NULL,'USD',9043.0000,NULL,NULL,NULL,'0',NULL,'2019-02-28 19:45:59'),
+(2,'GATE-IN','23','0901092019201920000011111','164454','2019-01-05',2,'030628','2019-01-05','CUK-00001','8','PCE',4.0000,78.9900,'VI-0001','2019-01-05 19:48:01',NULL,'USD',9043.0000,NULL,NULL,NULL,'0',NULL,'2019-02-28 19:50:45'),
+(3,'GATE-IN','23','0901092019201920000022222','164455','2019-01-05',1,'030629','2019-01-05','CUK-00001','8','PCE',9.0000,514.4500,'VI-0001','2019-01-05 19:48:01',NULL,'USD',9043.0000,NULL,NULL,NULL,'0',NULL,'2019-02-28 20:03:07'),
+(4,'GATE-IN','23','0901092019201920000022222','164455','2019-01-05',2,'030629','2019-01-05','TCU-00003','8','PCE',10.0000,78.9900,'VI-0001','2019-01-05 19:48:01',NULL,'USD',9043.0000,NULL,NULL,NULL,'0',NULL,'2019-02-28 20:06:02'),
+(5,'GATE-OUT','30','0901092019201920000033333','164457','2019-01-05',1,'030630','2019-01-05','BFF-0202-03','6','MC',3900.0000,56900.0000,'CE-0004','2019-01-05 19:48:01',NULL,'USD',9043.0000,NULL,NULL,NULL,'0',NULL,'2019-02-28 20:07:07'),
+(6,'GATE-IN','40','0901092019201920000044444','164726','2019-02-12',1,'1277/FEB/19/SJ/SH','2019-02-12','MCA-00001','8','PCE',5000.0000,15000000.0000,'VL-0045','2019-02-12 20:18:04',NULL,'IDR',1.0000,NULL,NULL,NULL,'0',NULL,'2019-02-28 20:16:06'),
+(7,'GATE-IN','40','0901092019201920000044444','164726','2019-02-12',2,'1277/FEB/19/SJ/SH','2019-02-12','STB-00002','8','PCE',30000.0000,2000000.0000,'VL-0045','2019-02-12 20:18:04',NULL,'IDR',1.0000,NULL,NULL,NULL,'0',NULL,'2019-02-28 20:18:19'),
+(8,'PROCESS_IN',NULL,NULL,NULL,NULL,1,NULL,NULL,'SPB-0000-01','1','KG',2.6650,NULL,NULL,'2019-02-03 01:41:36',NULL,NULL,NULL,'PD 1900001',NULL,'MASUK','0','Generated By Add On (S1) RAJUNGAN','2019-03-01 01:41:50'),
+(9,'PROCESS_IN',NULL,NULL,NULL,NULL,2,NULL,NULL,'LMB-0000-01','1','KG',0.2240,NULL,NULL,'2019-02-03 01:41:36',NULL,NULL,NULL,'PD 1900001',NULL,'MASUK','0','Generated By Add On (S1) RAJUNGAN','2019-03-01 01:42:29'),
+(10,'PROCESS_IN',NULL,NULL,NULL,NULL,3,NULL,NULL,'JPB-0000-01','1','KG',0.1040,NULL,NULL,'2019-02-03 01:41:36',NULL,NULL,NULL,'PD 1900001',NULL,'MASUK','0','Generated By Add On (S1) RAJUNGAN','2019-03-01 01:43:28'),
+(11,'PROCESS_IN',NULL,NULL,NULL,NULL,4,NULL,NULL,'JBB-0000-02','1','KG',0.2330,NULL,NULL,'2019-02-03 01:41:36',NULL,NULL,NULL,'PD 1900001',NULL,'MASUK','0','Generated By Add On (S1) RAJUNGAN','2019-03-01 01:44:03'),
+(12,'PROCESS_IN',NULL,NULL,NULL,NULL,5,NULL,NULL,'JBB-0000-01','1','KG',1.0400,NULL,NULL,'2019-02-03 01:41:36',NULL,NULL,NULL,'PD 1900001',NULL,'MASUK','0','Generated By Add On (S1) RAJUNGAN','2019-03-01 01:44:43'),
+(13,'PROCESS_IN',NULL,NULL,NULL,NULL,6,NULL,NULL,'FLB-0000-01','1','KG',0.8200,NULL,NULL,'2019-02-03 01:41:36',NULL,NULL,NULL,'PD 1900001',NULL,'MASUK','0','Generated By Add On (S1) RAJUNGAN','2019-03-01 01:45:20'),
+(14,'PROCESS_IN',NULL,NULL,NULL,NULL,7,NULL,NULL,'COB-0000-01','1','KG',0.1330,NULL,NULL,'2019-02-03 01:41:36',NULL,NULL,NULL,'PD 1900001',NULL,'MASUK','0','Generated By Add On (S1) RAJUNGAN','2019-03-01 01:45:52'),
+(15,'PROCESS_IN',NULL,NULL,NULL,NULL,8,NULL,NULL,'CMB-0000-01','1','KG',2.5310,NULL,NULL,'2019-02-03 01:41:36',NULL,NULL,NULL,'PD 1900001',NULL,'MASUK','0','Generated By Add On (S1) RAJUNGAN','2019-03-01 01:46:23'),
+(16,'PROCESS_IN',NULL,NULL,NULL,NULL,9,NULL,NULL,'BFB-0000-01','1','KG',0.9020,NULL,NULL,'2019-02-03 01:41:36',NULL,NULL,NULL,'PD 1900001',NULL,'MASUK','0','Generated By Add On (S1) RAJUNGAN','2019-03-01 01:46:57');
 
 /*Table structure for table `tr_logbook_in` */
+
+DROP TABLE IF EXISTS `tr_logbook_in`;
 
 CREATE TABLE `tr_logbook_in` (
   `LOT_NUMBER` varchar(30) NOT NULL,
@@ -3604,6 +3689,8 @@ CREATE TABLE `tr_logbook_in` (
 
 /*Table structure for table `tr_logbook_out` */
 
+DROP TABLE IF EXISTS `tr_logbook_out`;
+
 CREATE TABLE `tr_logbook_out` (
   `LOT_NUMBER` varchar(30) DEFAULT NULL,
   `JNS_DOK` char(3) DEFAULT NULL,
@@ -3625,9 +3712,50 @@ CREATE TABLE `tr_logbook_out` (
 
 /*Data for the table `tr_logbook_out` */
 
+/*Table structure for table `tr_pemusnahan_dtl` */
+
+DROP TABLE IF EXISTS `tr_pemusnahan_dtl`;
+
+CREATE TABLE `tr_pemusnahan_dtl` (
+  `HDR_ID` int(11) NOT NULL,
+  `DTL_ID` int(11) NOT NULL,
+  `KD_BARANG` varchar(255) DEFAULT NULL,
+  `JNS_BARANG` char(2) DEFAULT NULL,
+  `KD_SATUAN` char(3) DEFAULT NULL,
+  `KONDISI` char(1) DEFAULT NULL,
+  `JML_SATUAN` decimal(38,4) DEFAULT NULL,
+  PRIMARY KEY (`HDR_ID`,`DTL_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `tr_pemusnahan_dtl` */
+
+/*Table structure for table `tr_pemusnahan_hdr` */
+
+DROP TABLE IF EXISTS `tr_pemusnahan_hdr`;
+
+CREATE TABLE `tr_pemusnahan_hdr` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NO_SURAT` varchar(50) DEFAULT NULL,
+  `TGL_SURAT` date DEFAULT NULL,
+  `PERIHAL` varchar(255) DEFAULT NULL,
+  `KD_KANTOR_TUJUAN` char(6) DEFAULT NULL,
+  `NM_PEMOHON` varchar(50) DEFAULT NULL,
+  `ID_PEMOHON` varchar(20) DEFAULT NULL,
+  `NO_SURAT_TUGAS` varchar(20) DEFAULT NULL,
+  `TELEPON` varchar(15) DEFAULT NULL,
+  `EMAIL` varchar(25) DEFAULT NULL,
+  `CREATED_BY` int(11) DEFAULT NULL,
+  `CREATED_TIME` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  KEY `ID` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `tr_pemusnahan_hdr` */
+
 /* Trigger structure for table `tr_inout` */
 
 DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tr_inout_ai` */$$
 
 /*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tr_inout_ai` AFTER INSERT ON `tr_inout` FOR EACH ROW BEGIN
 	IF NEW.TIPE = 'GATE-IN' THEN
@@ -3642,6 +3770,7 @@ DELIMITER ;
 
 /* Function  structure for function  `func_active` */
 
+/*!50003 DROP FUNCTION IF EXISTS `func_active` */;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `func_active`(`GET_ID` INT) RETURNS varchar(255) CHARSET latin1
@@ -3662,6 +3791,20 @@ BEGIN
     END WHILE;
     RETURN RV;
 END */$$
+DELIMITER ;
+
+/* Function  structure for function  `f_menuchecked` */
+
+/*!50003 DROP FUNCTION IF EXISTS `f_menuchecked` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `f_menuchecked`(MENUID INT(3), MENUGROUPID INT(11)) RETURNS varchar(10) CHARSET latin1
+BEGIN
+    DECLARE f_uraian VARCHAR(10);
+	SELECT IF(COUNT(MENU_ID)=0,'','checked') INTO f_uraian FROM tm_role_menu
+	WHERE MENU_ID = MENUID AND ROLE_ID = MENUGROUPID;
+	RETURN f_uraian;
+    END */$$
 DELIMITER ;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

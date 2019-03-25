@@ -556,3 +556,24 @@ function menucheckChild(formid,id){
       $("#"+formid).find('#checkmenuParent_'+id).attr('checked',false);    
    }
 }
+
+function Autocomp(id,form){
+   if(typeof(form)=='undefined'){var formid=""; }else{ var formid = "#"+form;}
+   $(formid+" #"+id).autocomplete($(formid+" #"+id).attr('url'), {width: 226, selectFirst: false});
+   $(formid+" #"+id).result(function(event, data, formatted){
+      if(data){
+         $(this).val(data[1]);
+         var m = $(this).attr("urai").split(";");
+         var a = 2;
+         for(var c=0;c<(m.length)-1;c++){
+            var tipe = $("#"+m[c]).get(0).tagName;
+            if(tipe=='INPUT'){
+               $(formid+' #'+m[c]).val(data[a]);
+            }else{
+               $(formid+' #'+m[c]).html(data[a]);
+            }
+            a++;
+         }
+      }
+   });   
+}

@@ -19,12 +19,19 @@ class M_report extends CI_Model {
 			$where .= "WHERE a.tipe = 'GATE-OUT'";
 		}
 		if($search['tgl_awal'] != "" && $search['tgl_akhir'] != "") {
-			$where .= " AND a.tgl_dok BETWEEN ".$this->db->escape($search['tgl_awal'])." AND ".$this->db->escape($search['tgl_akhir']);
+			$tgl = " AND STR_TO_DATE(a.tgl_realisasi, '%Y-%m-%d')";
+			if($search['tgl_awal'] == "on") {
+				$tgl = ' AND a.tgl_dok';
+			}
+			$where .= $tgl." BETWEEN ".$this->db->escape($search['tgl_awal'])." AND ".$this->db->escape($search['tgl_akhir']);
 		} else {
 			$where .= " AND MONTH(a.tgl_dok) = MONTH(CURRENT_DATE()) AND YEAR(a.tgl_dok) = YEAR(CURRENT_DATE())";
 		}
 		if($search['kd_dok'] != "") {
 			$where .= " AND a.kd_dok = ".$this->db->escape($search['kd_dok']);	
+		}
+		if($search['nomor_aju'] != "") {
+			$where .= " AND a.car LIKE '%".$search['nomor_aju']."%'";
 		}
 		$query = $this->db->query("
 			SELECT CONCAT('BC ',a.kd_dok) as kd_dok, a.car, a.no_dok, a.tgl_dok, a.no_dok_internal, a.tgl_dok_internal, b.nm_supplier,
