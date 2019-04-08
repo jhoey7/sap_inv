@@ -7,31 +7,41 @@
 	  <p>List data yang ditampilkan adalah yang pengeluaran yang terjadi di bulan berjalan. Cari berdasarkan tanggal untuk mencari data lainnya.</p>
 	</div>
 	<div class="panel-body">
-	  <form class="form-inline" method="post" action="<?php echo site_url('report/pengeluaran'); ?>" onSubmit="view_report('frm_laporan'); return false;" id="frm_laporan" name="frm_laporan" autocomplete="off">
-	    <div class="form-group">
-	      <label class="sr-only" for="tgl-awal">Tanggal Awal</label>
-	      <input type="text" class="form-control date" id="tgl-awal" name="tgl_awal" placeholder="Tanggal Awal">
-	    </div>
-	    <div class="form-group">
-	      <label class="sr-only" for="tgl-akhir">Tanggal Akhir</label>
-	      <input type="text" class="form-control date" id="tgl-akhir" name="tgl_akhir" placeholder="Tanggal Akhir">
-	    </div>
-	    <div class="form-group">
-	    	<label class="sr-only" for="kd_dok">Kode Dokuumen</label>
-	    	<?php echo form_dropdown('kd_dok', $kd_dok, "", 'id="kd_dok" class="from-control mb30" style="width: 100px;"'); ?>
-	    </div>
-	    <button type="submit" class="btn btn-primary">Search</button>
-	    <button type="reset" class="btn btn-default">Reset</button>
-		  <div class="table-responsive" style="padding-top: 10px;">
+	  	<form method="post" action="<?php echo site_url('report/pengeluaran'); ?>" onSubmit="view_report('frm_laporan'); return false;" id="frm_laporan" name="frm_laporan" autocomplete="off">
+		    <div class="row row-pad-5">
+				<div class="col-lg-2">
+					<div class="ckbox checkbox ckbox-success">
+						<input type="checkbox" id="all" name="all">
+						<label for="all">Search By Document</label>
+					</div>
+				</div>
+				<div class="col-lg-2">
+					<input type="text" class="form-control date" id="tgl-awal" name="tgl_awal" placeholder="Tanggal Awal">
+				</div>
+				<div class="col-lg-2">
+					<input type="text" class="form-control date" id="tgl-akhir" name="tgl_akhir" placeholder="Tanggal Akhir">
+				</div>
+				<div class="col-lg-3">
+					<input type="text" class="form-control" id="nomor_aju" name="nomor_aju" placeholder="Nomor Aju">
+				</div>
+				<div class="col-lg-2">
+					<?php echo form_dropdown('kd_dok', $kd_dok, "", 'id="kd_dok" class="from-control" style="width: 120px;'); ?>
+				</div>
+			</div>
+		    <div class="btn-group">
+			    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>&nbsp;Search</button>
+			    <button type="reset" class="btn btn-default"><i class="fa fa-undo"></i>&nbsp;Reset</button>
 			    <div class="btn-group">
-			        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+			        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 			            Action <span class="caret"></span>
 			        </button>
 			        <ul class="dropdown-menu" role="menu">
-			            <li><a href="javascript:void(0);" onClick="print_report('pengeluaran','pdf')">Export to PDF</a></li>
-			            <li><a href="javascript:void(0);" onClick="print_report('pengeluaran','xls')">Export to XLS</a></li>
+			            <li><a href="javascript:void(0);" onClick="print_report('pemasukan','pdf')">Export to PDF</a></li>
+			            <li><a href="javascript:void(0);" onClick="print_report('pemasukan','xls')">Export to XLS</a></li>
 			        </ul>
 			    </div>
+		    </div>
+			<div class="table-responsive" style="padding-top: 10px;">
 				<table class="table table-bordered mb30 data-table-report" width="100%" url="<?php echo site_url('report/pengeluaran'); ?>" style="font-size: 10px;">
 					<thead>
 						<tr>

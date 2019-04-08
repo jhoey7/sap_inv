@@ -27,7 +27,7 @@ class M_report extends CI_Model {
 		} else {
 			$where .= " AND MONTH(a.tgl_dok) = MONTH(CURRENT_DATE()) AND YEAR(a.tgl_dok) = YEAR(CURRENT_DATE())";
 		}
-		if($search['kd_dok'] != "") {
+		if($search['kd_dok'] != "" && $search['kd_dok'] != "ALL") {
 			$where .= " AND a.kd_dok = ".$this->db->escape($search['kd_dok']);	
 		}
 		if($search['nomor_aju'] != "") {
@@ -63,7 +63,7 @@ class M_report extends CI_Model {
 		} else {
 			$where .= " AND MONTH(a.tgl_dok) = MONTH(CURRENT_DATE()) AND YEAR(a.tgl_dok) = YEAR(CURRENT_DATE())";
 		}
-		if($search['kd_dok'] != "") {
+		if($search['kd_dok'] != "" && $search['kd_dok'] != "ALL") {
 			$where .= " AND a.kd_dok = ".$this->db->escape($search['kd_dok']);	
 		}
 		$query = $this->db->query("
@@ -81,9 +81,9 @@ class M_report extends CI_Model {
 		if($type == "dokumen_pemasukan" || $type == "dokumen_pengeluaran") {
 			$where = "";
 			if($type == "dokumen_pemasukan") {
-				$where = "AND reff_code IN('23','262','27','40')";
+				$where = "AND reff_code IN('ALL','23','262','27','40')";
 			} else {
-				$where = "AND reff_code IN('25','261','27','41','30')";
+				$where = "AND reff_code IN('ALL','25','261','27','41','30')";
 			}
 			$sql = "SELECT reff_code, reff_description 
 					FROM reff_table 
