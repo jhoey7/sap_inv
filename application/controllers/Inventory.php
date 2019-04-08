@@ -43,7 +43,7 @@ class Inventory extends CI_Controller {
 			);
 			$this->parser->parse('main', $data);
 		}else{
-			$this->load->view('login');
+			redirect(base_url('index.php'),'refresh');
 		}
 	}
 

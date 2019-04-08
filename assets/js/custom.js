@@ -577,3 +577,33 @@ function Autocomp(id,form){
       }
    });   
 }
+
+$('.btn-add-pemusnahan').on('click',function() {
+   var Mathrandom = Math.floor(Math.random()*1001);
+   var $tr    = $(this).closest('#tr_1');
+   var $clone = $tr.clone().attr('id','tr_' + Mathrandom);
+   $clone.find('#KODE_BARANG_1').attr('id','KODE_BARANG_' + Mathrandom).attr('urai','UR_BRG_'+Mathrandom+';JNS_BRG_'+Mathrandom+';KD_SATUAN_'+Mathrandom+';UR_JNS_'+Mathrandom+';');
+   $clone.find('#UR_BRG_1').attr('id','UR_BRG_' + Mathrandom);
+   $clone.find('#UR_JNS_1').attr('id','UR_JNS_' + Mathrandom);
+   $clone.find('#JNS_BRG_1').attr('id','JNS_BRG_' + Mathrandom);
+   $clone.find('#KONDISI_BARANG_1').attr('id','KONDISI_BARANG_' + Mathrandom);
+   $clone.find('#JML_BARANG_1').attr('id','JML_BARANG_' + Mathrandom);
+   $clone.find('#KD_SATUAN_1').attr('id','KD_SATUAN_' + Mathrandom);
+   $clone.find('.btn-add-pemusnahan').removeClass().addClass('btn btn-danger btn-delete-pemusnahan').find("i").removeClass().addClass('fa fa-trash-o');
+   $clone.find('.btn-delete-pemusnahan').attr('onclick', 'delete_row('+Mathrandom+')');
+   $clone.find(':text').val('');
+   $tr.after($clone);
+});
+
+function delete_row(id) {
+  $('#tr_' +id)
+    .children('td, th')
+    .animate({ padding: 0 })
+    .wrapInner('<div />')
+    .children()
+    .slideUp(function() { $(this).closest('tr').remove(); });
+}
+
+function blank_print(id, _url) {
+   window.open(site_url + '/' + _url + '/' + id);
+}

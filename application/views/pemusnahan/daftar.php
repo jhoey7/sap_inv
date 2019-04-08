@@ -14,11 +14,12 @@
 						<th width="2%">#</th>
 						<th width="10%">No. Surat</th>
 						<th width="10%">Tgl. SUrat</th>
-						<th width="18%">Kantor Tujuan</th>
-						<th width="15%">Perihal</th>
-						<th width="15%">Nama Pemohon</th>
-						<th width="15%">ID Pemohon</th>
-						<th width="15%">No. SUrat Tugas</th>
+						<th width="15%">Kantor Tujuan</th>
+						<th width="14%">Perihal</th>
+						<th width="12%">Nama Pemohon</th>
+						<th width="12%">ID Pemohon</th>
+						<th width="12%">No. SUrat Tugas</th>
+						<th width="13%" class="action">&nbsp;</th>
 					</tr>
 				</thead>
 			</table>

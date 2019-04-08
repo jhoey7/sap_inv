@@ -18,13 +18,13 @@
   <script src="js/respond.min.js"></script>
   <![endif]-->
 </head>
-<body>
+<body class="stickyheader">
   <!-- Preloader -->
   <div id="preloader">
       <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
   </div>
   <section>
-    <div class="leftpanel">
+    <div class="leftpanel sticky-leftpanel">
       <div class="logopanel">
           <h1><span>[</span> INVENTORY <span>]</span></h1>
       </div><!-- logopanel -->

@@ -10,8 +10,10 @@ class Pemusnahan extends CI_Controller {
 			$headers = '<link rel="shortcut icon" href="'.base_url().'assets/images/favicon.png">';
 			#Stylesheets
 			$headers .= '<link rel="stylesheet" href="'.base_url().'assets/css/style.default.css">';
+ 	 		$headers .= '<link rel="stylesheet" href="'.base_url().'assets/css/jquery.gritter.css">';
   			$headers .= '<link rel="stylesheet" href="'.base_url().'assets/css/jquery.datatables.css">';
   			$headers .= '<link rel="stylesheet" href="'.base_url().'assets/css/bootstrap-timepicker.min.css" />';
+  			$headers .= '<link rel="stylesheet" href="'.base_url().'assets/sweetalert/sweetalert.css">';
 
 			$footers  = '<script src="'.base_url().'assets/js/jquery-1.10.2.min.js"></script>';
 			$footers .= '<script src="'.base_url().'assets/js/jquery-migrate-1.2.1.min.js"></script>';
@@ -21,7 +23,9 @@ class Pemusnahan extends CI_Controller {
 			$footers .= '<script src="'.base_url().'assets/js/jquery.sparkline.min.js"></script>';
 			$footers .= '<script src="'.base_url().'assets/js/toggles.min.js"></script>';
 			$footers .= '<script src="'.base_url().'assets/js/retina.min.js"></script>';
+			$footers .= '<script src="'.base_url().'assets/sweetalert/sweetalert.min.js"></script>';
 			$footers .= '<script src="'.base_url().'assets/js/jquery.cookies.js"></script>';
+			$footers .= '<script src="'.base_url().'assets/js/jquery.gritter.min.js"></script>';
 			$footers .= '<script src="'.base_url().'assets/plugin/datatables/js/jquery.datatables.min.js"></script>';
 			$footers .= '<script src="'.base_url().'assets/js/chosen.jquery.min.js"></script>';
 			$footers .= '<script src="'.base_url().'assets/js/bootstrap-timepicker.min.js"></script>';
@@ -45,18 +49,19 @@ class Pemusnahan extends CI_Controller {
 			);
 			$this->parser->parse('main', $data);
 		}else{
-			$this->load->view('login');
+			redirect(base_url());
 		}
 	}
 
-	function daftar($type="") {
+	function daftar($type="",$id="") {
 		if(!$this->session->userdata('LOGGED')) {
 			$this->index();
 			return;
 		}
 		if(strtolower($_SERVER['REQUEST_METHOD'])=="post") {
+			$this->load->library('Azdgcrypt');
 			$this->load->model('m_pemusnahan','model');
-			$columns = array("no_surat","tgl_surat","kd_kantor_tujuan","perihal","nm_pemohon","id_pemohon","no_surat_tugas");
+			$columns = array("no_surat","tgl_surat","kd_kantor_tujuan","perihal","nm_pemohon","id_pemohon","no_surat_tugas","id");
 	    	$aColumns = array("a.no_surat","a.tgl_surat","a.kd_kantor_tujuan","a.perihal","a.nm_pemohon","a.id_pemohon","a.no_surat_tugas");
 	    
 	    	$sIndexColumn = $aColumns[0];
@@ -116,6 +121,9 @@ class Pemusnahan extends CI_Controller {
 				for ( $i=0 ; $i<count($columns) ; $i++ ){
 					$row[] = $aRow[ $columns[$i] ];
 				}
+				if($row[8] != "") {
+					$row[8] = '<a href="javascript:void(0);" onClick="edit_data(\''.$this->azdgcrypt->crypt(''.$row[8].'').'\',\'pemusnahan/daftar/view\')" class="btn btn-info btn-sm" title="View"><i class="fa fa-eye"></i></a>&nbsp;<a href="javascript:void(0);" class="delete-row btn btn-sm btn-danger" onClick="blank_print(\''.$this->azdgcrypt->crypt(''.$row[8].'').'\',\'pemusnahan/cetak\')" title="Cetak"><i class="fa fa-print"></i></a>';
+				}
 				$page++;
 				$output['aaData'][] = $row;
 			}
@@ -124,7 +132,14 @@ class Pemusnahan extends CI_Controller {
 			if(in_array($type, array("add","update"))) {
 				$data['action'] = "save";
 				$this->breadcrumbs = array("title"=>"Pemusnahan","icon"=>"trash-o","title_child"=>"Add Pemusnahan","url"=>'pemusnahan/daftar/add');
-				$this->content = $this->load->view('pemusnahan/form-pemusnahan','',true);
+				$this->content = $this->load->view('pemusnahan/form-pemusnahan',$data,true);
+			} elseif($type == "view") {
+				$this->load->library('Azdgcrypt');
+				$this->load->model('m_pemusnahan');
+				$data['header'] = $this->m_pemusnahan->get_data('header', $this->azdgcrypt->decrypt($id));
+				$data['detil'] = $this->m_pemusnahan->get_data('detil', $this->azdgcrypt->decrypt($id));
+				$this->breadcrumbs = array("title"=>"Pemusnahan","icon"=>"trash-o","title_child"=>"View","url"=>'pemusnahan/daftar');
+				$this->content = $this->load->view('pemusnahan/view-data',$data,true);
 			} else {
 				$this->breadcrumbs = array("title"=>"Pemusnahan","icon"=>"trash-o","title_child"=>"Barang","url"=>'pemusnahan/daftar');
 				$this->content = $this->load->view('pemusnahan/daftar','',true);
@@ -133,13 +148,35 @@ class Pemusnahan extends CI_Controller {
 		}
 	}
 
-	function process($type) {
+	function execute($type) {
 		if(!$this->session->userdata('LOGGED')) {
 			$this->index();
 			return;
 		}
 		if(strtolower($_SERVER['REQUEST_METHOD'])=="post") {
-
+			$this->load->model("m_pemusnahan");
+			echo $this->m_pemusnahan->execute($type);
 		}
+	}
+
+	function cetak($id) {
+		$this->load->library('Azdgcrypt');
+		$this->load->model('m_pemusnahan');
+		$data['header'] = $this->m_pemusnahan->get_data('header', $this->azdgcrypt->decrypt($id));
+		$data['pagebreak'] = 1;
+		$html = $this->load->view('pemusnahan/cetak-data', $data, true);
+		$stylesheet = file_get_contents('assets/css/laporan.css');
+		$mpdf = new \Mpdf\Mpdf(array("mode"=>"utf-8","format"=>"A4-P","margin_top"=>25, "default_font_size"=>10));
+		$mpdf->ignore_invalid_utf8 = true; 
+		$mpdf->SetProtection(array('print'));
+		$mpdf->SetAuthor("joniiskandar");
+		$mpdf->SetCreator("joniiskandar");
+		$mpdf->list_indent_first_level = 0; 
+		$mpdf->SetDisplayMode('fullpage');
+		$mpdf->AliasNbPages('[pagetotal]');
+		$mpdf->WriteHTML($stylesheet,1);
+		$mpdf->WriteHTML($html);
+		$mpdf->Output();
+		exit();
 	}
 }

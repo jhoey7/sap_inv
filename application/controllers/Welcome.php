@@ -32,7 +32,6 @@ class Welcome extends CI_Controller {
 				'_menus_'		=> $this->load->view('menu',$menu,true),
 				'_breadcrumbs_' => $this->load->view('breadcrumbs',$this->breadcrumbs,true),
 				'_content_' 	=> (grant()=="")?$this->load->view('error','',true):$this->content,
-				// '_content_' 	=> $this->content,
 				'_footers_' 	=> $footers
 			);
 			$this->parser->parse('main', $data);

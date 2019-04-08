@@ -61,7 +61,7 @@
 				</div><!-- col-sm-2 -->
 				<div class="col-sm-5">
 					<div class="form-group">
-						<label class="control-label">No. Surat Tugas / Kuasa <code>*</code> <code>*</code></label>
+						<label class="control-label">No. Surat Tugas / Kuasa <code>*</code></label>
 						<input type="text" name="data[no_surat_tugas]" id="no_surat_tugas" class="form-control" mandatory="yes" value="<?php echo $data['no_surat_tugas']; ?>">
 					</div>
 				</div><!-- col-sm-5 -->
@@ -84,7 +84,7 @@
 							</div>
 							<div class="panel-body">
 								<div class="table-responsive">
-									<table class="table table-striped mb30">
+									<table class="table table-striped mb30" id="tbl-barang-pemusnahan">
 										<thead>
 											<tr>
 												<th width="20%">Kode Barang</th>
@@ -97,14 +97,14 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td><input type="text" name="DTLSURAT[KODE_BARANG][]" id="KODE_BARANG_1" class="form-control" onfocus="Autocomp(this.id)" url="<?php echo site_url('autocomplete/barang'); ?>" urai="UR_BRG_1;JNS_BRG_1;KD_SATUAN_1;UR_JNS_1;"></td>
+											<tr id="tr_1">
+												<td><input type="text" name="DETIL[KD_BARANG][]" id="KODE_BARANG_1" class="form-control" onfocus="Autocomp(this.id)" url="<?php echo site_url('autocomplete/barang'); ?>" urai="UR_BRG_1;JNS_BRG_1;KD_SATUAN_1;UR_JNS_1;" mandatory="yes"></td>
 												<td><input type="text" id="UR_BRG_1" class="form-control" disabled="true"></td>
-												<td><input type="text" id="UR_JNS_1" class="form-control" disabled="true"><input type="hidden" id="JNS_BRG_1" class="form-control"></span></td>
-												<td><input type="text" id="KONDISI_BARANG_1" class="form-control"></td>
-												<td><input type="text" id="JML_BARANG_1" class="form-control"></td>
-												<td><input type="text" id="KD_SATUAN_1" class="form-control" readonly="true"></td>
-												<td><a href="javascript:void(0);" class="btn btn-info"><i class="fa fa-plus"></i></a></td>
+												<td><input type="text" id="UR_JNS_1" class="form-control" disabled="true"><input type="hidden" name="DETIL[JNS_BARANG][]" id="JNS_BRG_1" class="form-control"></span></td>
+												<td><input type="text" name="DETIL[KONDISI][]" id="KONDISI_BARANG_1" class="form-control"mandatory="yes"></td>
+												<td><input type="text" name="DETIL[JML_SATUAN][]" id="JML_BARANG_1" class="form-control" mandatory="yes"></td>
+												<td><input type="text" name="DETIL[KD_SATUAN][]" id="KD_SATUAN_1" class="form-control" readonly="true"></td>
+												<td><a href="javascript:void(0);" class="btn btn-info btn-add-pemusnahan"><i class="fa fa-plus"></i></a></td>
 											</tr>
 										</tbody>
 									</table>

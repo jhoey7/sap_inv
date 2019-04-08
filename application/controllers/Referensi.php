@@ -41,7 +41,7 @@ class Referensi extends CI_Controller {
 			);
 			$this->parser->parse('main', $data);
 		}else{
-			redirect(base_url(),'refresh');
+			redirect(base_url('index.php'),'refresh');
 		}
 	}
 
