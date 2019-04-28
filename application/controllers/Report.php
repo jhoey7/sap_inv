@@ -266,7 +266,7 @@ class Report extends CI_Controller {
 			return;
 		}
 		$this->breadcrumbs = array("title"=>"Laporan","icon"=>"laptop","title_child"=>"Laporan Mutasi Barang Modal","url"=>'report/mutasi_bm');
-		$arrdata['title'] = 'Laporan Mutasi Barang Modal';
+		$arrdata['title'] = 'Laporan Mutasi Mesin';
 		$arrdata['type'] = "mutasi_bm";
 		$this->content = $this->load->view('report/mutasi',$arrdata,true);
 		$this->index();
@@ -296,6 +296,18 @@ class Report extends CI_Controller {
 		$this->index();
 	}
 
+	function mutasi_sp() {
+		if(!$this->session->userdata('LOGGED')) {
+			$this->index();
+			return;
+		}
+		$this->breadcrumbs = array("title"=>"Laporan","icon"=>"laptop","title_child"=>"Laporan Mutasi Spare Part","url"=>'report/mutasi_sp');
+		$arrdata['title'] = 'Laporan Mutasi Spare Part';
+		$arrdata['type'] = "mutasi_sp";
+		$this->content = $this->load->view('report/mutasi',$arrdata,true);
+		$this->index();
+	}
+
 	function proses($tipe, $jns_file="") {
 		if(!$this->session->userdata('LOGGED')) {
 			$this->index();
@@ -307,6 +319,7 @@ class Report extends CI_Controller {
 	        set_time_limit(0);
 	    	$tgl_awal = $this->input->post("tgl_awal");
 	    	$tgl_akhir = $this->input->post("tgl_akhir");
+	    	$kd_barang = $this->input->post("kd_barang");
 	        $jml_page = $this->input->post("JUMPAGES");
 	        $all = $this->input->post("all");
 
@@ -315,8 +328,6 @@ class Report extends CI_Controller {
 		        ini_set("display_errors", 1);
 		        ini_set('memory_limit', '-1');
 		        set_time_limit(0);
-		    	$tgl_awal = $this->input->post("tgl_awal");
-		    	$tgl_akhir = $this->input->post("tgl_akhir");
 		        $kd_dok = $this->input->post("kd_dok");
 				$data['data'] = $this->model->get_data($tipe);
 				$data['tipe'] = $tipe;
@@ -344,7 +355,7 @@ class Report extends CI_Controller {
 					$this->cetakexcell($judul,$html);
 				}
 			} else {
-				$sql = $this->model->mutasi($tipe, $tgl_awal, $tgl_akhir, $all);
+				$sql = $this->model->mutasi($tipe, $tgl_awal, $tgl_akhir, $all, $kd_barang);
 	            if ($sql) {				
 					if($all) {
 						$query = $this->db->query(str_replace("|","",$sql));	
@@ -361,15 +372,19 @@ class Report extends CI_Controller {
 						if($tipe=="mutasi_bm") $jndata = " WHERE jns_brg = '3'";
 						if($tipe=="mutasi_pk") $jndata = " WHERE jns_brg = '4'";
 						if($tipe=="mutasi_bs") $jndata = " WHERE jns_brg = '7'";
+						if($tipe=="mutasi_sp") $jndata = " WHERE jns_brg = '3A'";
 		
 						$sql .= " UNION SELECT kd_brg as kd_barang | , jns_brg as jns_barang, nm_brg, kd_satuan, '' penyesuaian |
 								  FROM tm_barang ".$jndata;
+						if($kd_barang) {
+			            	$sql .= " AND kd_brg = ".$this->db->escape($kd_barang);
+			            }
 						if($indata!='') {
 							$sql .= " AND kd_brg NOT IN(".$indata.") ";	
 						}
 					}
 					#==================================================================================================
-					$this->baris = 100;
+					$this->baris = 10;
 					if(strpos(strtoupper($sql),"UNION") == false) {
 						$SQL_EXP = explode("|",$sql);
 						$SQL_EXP_TMP = $SQL_EXP[0].' '.$SQL_EXP[2];
@@ -428,11 +443,11 @@ class Report extends CI_Controller {
 						$actions = site_url()."/report/proses/".$tipe;
 						$prev = $hal-1;
 						$next = $hal+1;
-						$firsExec = "lap_pagging('".$actions."', 'view', '1', 'frm-laporan');";
-						$prevExec = "lap_pagging('".$actions."', 'view', '".$prev."', 'frm-laporan');";
-						$nextExec = "lap_pagging('".$actions."', 'view', '".$next."', 'frm-laporan');";
-						$lastExec = "lap_pagging('".$actions."', 'view', '".$total_record."', 'frm-laporan');";
-						$forgo = "lap_pagging('".$actions."', 'view', document.getElementById('tb_halfrm-laporan').value, 'frm-laporan');";
+						$firsExec = "lap_pagging('".$actions."', 'view', '1', 'frm_laporan');";
+						$prevExec = "lap_pagging('".$actions."', 'view', '".$prev."', 'frm_laporan');";
+						$nextExec = "lap_pagging('".$actions."', 'view', '".$next."', 'frm_laporan');";
+						$lastExec = "lap_pagging('".$actions."', 'view', '".$total_record."', 'frm_laporan');";
+						$forgo = "lap_pagging('".$actions."', 'view', document.getElementById('tb_halfrm_laporan').value, 'frm_laporan');";
 						$out .="<span style=\"float: right;\">";
 						if ($hal != "1") {
 							$out .="<a href=\"javascript:void(0)\" onclick=\"".$firsExec."\" class=\"btn btn-xs btn-default\">First</a>&nbsp;";
@@ -463,9 +478,10 @@ class Report extends CI_Controller {
 				if($tipe == "mutasi_bb") $judul = "Mutasi Bahan Baku";
 				elseif($tipe == "mutasi_bp") $judul = "Mutasi Bahan Penolong";
 				elseif($tipe == "mutasi_hp") $judul = "Mutasi Hasil Produksi";
-				elseif($tipe == "mutasi_bm") $judul = "Mutasi Barang Modal";
+				elseif($tipe == "mutasi_bm") $judul = "Mutasi Mesin";
 				elseif($tipe == "mutasi_pk") $judul = "Mutasi Peralatan Kantor";
 				elseif($tipe == "mutasi_bs") $judul = "Mutasi Barang Sisa & Scrap";
+				elseif($tipe == "mutasi_sp") $judul = "Mutasi Spare Part";
 
 	            $data = array(
 	            	"tipe" 			=> $tipe,

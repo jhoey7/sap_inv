@@ -170,7 +170,7 @@ class M_report extends CI_Model {
 		return $query;
 	}
 
-	function mutasi($tipe, $tgl_awal, $tgl_akhir, $all) {
+	function mutasi($tipe, $tgl_awal, $tgl_akhir, $all, $kd_barang) {
 		if (in_array($tipe, array("mutasi_bb", "mutasi_hp", "mutasi_bs", "mutasi_ms","mutasi_bp"))) {
             switch ($tipe) {
                 case "mutasi_bb":
@@ -193,6 +193,9 @@ class M_report extends CI_Model {
                 case "mutasi_bs":
                     $jns_brg = " AND A.jns_barang = '7' AND A.tipe IN ('GATE-OUT','PROCESS_OUT','SCRAP','MUSNAH','RUSAK','GATE-IN','MOVE-IN')";
                     break;
+                case "mutasi_sp":
+                    $jns_brg = " AND A.jns_barang = '3A' AND A.tipe IN ('GATE-IN','GATE-OUT','MUSNAH','RUSAK','MOVE-IN')";
+                    break;
             }
             $sql = "SELECT a.kd_barang |, a.jns_barang, b.nm_brg, a.kd_satuan, '' penyesuaian |
                     FROM tr_inout a, tm_barang b
@@ -200,6 +203,10 @@ class M_report extends CI_Model {
                     AND a.jns_barang = b.jns_brg
 					AND DATE_FORMAT(a.tgl_realisasi,'%Y-%m-%d') BETWEEN ".$this->db->escape($tgl_awal)." AND ".$this->db->escape($tgl_akhir);
             $sql .= $jns_brg;
+            if($kd_barang) {
+            	$sql .= " AND a.kd_barang = ".$this->db->escape($kd_barang);
+            }
+
 			$sql .= " GROUP BY a.kd_barang, a.jns_barang";
             if (!$all){
                 $sql .= " ORDER BY A.kd_barang, A.jns_barang";

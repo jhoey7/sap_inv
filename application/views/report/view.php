@@ -15,7 +15,7 @@ function getKeterangan($jml) {
         }
     }
 } 
-if (in_array($tipe, array("mutasi_bb", "mutasi_hp", "mutasi_bs", "mutasi_pk","mutasi_bp","mutasi_bm"))) { ?>
+if (in_array($tipe, array("mutasi_bb", "mutasi_hp", "mutasi_bs", "mutasi_pk","mutasi_bp","mutasi_bm","mutasi_sp"))) { ?>
     <div class="btn-group">
         <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
             Action <span class="caret"></span>

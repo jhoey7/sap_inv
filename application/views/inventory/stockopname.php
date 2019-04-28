@@ -12,8 +12,9 @@
 				<thead>
 					<tr>
 						<th width="2%">#</th>
-						<th width="50%">Tanggal</th>
+						<th width="45%">Tanggal</th>
 						<th width="48%">Jumlah</th>
+						<th width="5%" class="action">Action</th>
 					</tr>
 				</thead>
 			</table>

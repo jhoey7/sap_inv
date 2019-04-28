@@ -607,3 +607,19 @@ function delete_row(id) {
 function blank_print(id, _url) {
    window.open(site_url + '/' + _url + '/' + id);
 }
+
+function popup_view(id, _url) {
+   $.ajax({
+      type: "POST",
+      url: site_url + '/' + _url,
+      dataType: "json",
+      data: {
+         'id': id
+      },
+      success: function(msg) {
+         $('#div-modal #div-title').html(msg.title);
+         $('#div-modal .modal-body').html(msg.data);
+         $('#div-modal').modal('show'); 
+      }
+   });
+}

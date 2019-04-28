@@ -30,7 +30,6 @@ class Inventory extends CI_Controller {
 			}
 			$this->load->model("m_menu");
 			$menu['menu'] = $this->m_menu->drawMenu();
-			#print_r($menu);die();
 			$data = array(
 				'_title_'		=> 'IT INVENTORY',
 				'_headers_'		=> $headers,
@@ -38,7 +37,6 @@ class Inventory extends CI_Controller {
 				'_menus_'		=> $this->load->view('menu',$menu,true),
 				'_breadcrumbs_' => $this->load->view('breadcrumbs',$this->breadcrumbs,true),
 				'_content_' 	=> (grant()=="")?$this->load->view('error','',true):$this->content,
-				// '_content_' 	=> $this->content,
 				'_footers_' 	=> $footers
 			);
 			$this->parser->parse('main', $data);
@@ -131,8 +129,9 @@ class Inventory extends CI_Controller {
 			return;
 		}
 		if(strtolower($_SERVER['REQUEST_METHOD'])=="post") {
+			$this->load->library('Azdgcrypt');
 			$this->load->model('m_inventory','model');
-			$columns = array("tgl_stock","jml_stock");
+			$columns = array("tgl_stock","jml_stock","tanggal_stockopname");
 	    	$aColumns = array("tgl_stock");
 	    
 	    	$sIndexColumn = $aColumns[0];
@@ -192,9 +191,9 @@ class Inventory extends CI_Controller {
 				for ( $i=0 ; $i<count($columns) ; $i++ ){
 					$row[] = $aRow[ $columns[$i] ];
 				}
-				$row[] = $aRow[$columns[6]];
-				$row[] = $aRow[$columns[7]];
-				$row[] = $aRow[$columns[8]];
+				if($row[3]) {
+					$row[3] = '<a href="javascript:void(0);" onClick="popup_view(\''.$this->azdgcrypt->crypt(''.$row[3].'').'\',\'inventory/view/stockopname\')" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>';
+				}
 				$page++;
 				$output['aaData'][] = $row;
 			}
@@ -204,5 +203,18 @@ class Inventory extends CI_Controller {
 			$this->content = $this->load->view('inventory/stockopname','',true);
 			$this->index();
 		}
+	}
+
+	function view($type) {
+		if(!$this->session->userdata('LOGGED')) {
+			$this->index();
+			return;
+		}
+		$this->load->model('m_inventory','model');
+		$arrdata['datas'] = $this->model->get_data($type);
+
+		$data['data'] = $this->load->view('inventory/detil-stockopname', $arrdata, true);
+		$data['title'] = "Detil Stockopname";
+		echo json_encode($data);
 	}
 }
