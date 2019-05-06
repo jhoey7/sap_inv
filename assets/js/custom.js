@@ -275,6 +275,8 @@ function load_table() {
    var table = $('.data-table').DataTable({
       "sDom": '<"toolbar">Rfrtlip',
       "sPaginationType": "full_numbers",
+      "scrollY": "200px",
+      "scrollCollapse": true,
       "bSort": true,
       "processing": true,
       "serverSide": true,
@@ -320,6 +322,8 @@ function load_table_report() {
    jQuery('.data-table-report').DataTable({
       "sDom": '<"toolbar">Rfrtlip',
       "sPaginationType": "full_numbers",
+      "scrollY": "200px",
+      "scrollCollapse": true,
       "bSort": false,
       "searching": false,
       "processing": true,
@@ -351,6 +355,8 @@ function view_report(form) {
    oTable = jQuery('.data-table-report').DataTable({
       "sDom": '<"toolbar">Rfrtlip',
       "sPaginationType": "full_numbers",
+      "scrollY": "200px",
+      "scrollCollapse": true,
       "bSort": false,
       "searching": false,
       "processing": true,
