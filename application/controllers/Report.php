@@ -308,6 +308,18 @@ class Report extends CI_Controller {
 		$this->index();
 	}
 
+	function mutasi_wip() {
+		if(!$this->session->userdata('LOGGED')) {
+			$this->index();
+			return;
+		}
+		$this->breadcrumbs = array("title"=>"Laporan","icon"=>"laptop","title_child"=>"Laporan Mutasi WIP","url"=>'report/mutasi_wip');
+		$arrdata['title'] = 'Laporan Mutasi WIP';
+		$arrdata['type'] = "mutasi_wip";
+		$this->content = $this->load->view('report/mutasi',$arrdata,true);
+		$this->index();
+	}
+
 	function proses($tipe, $jns_file="") {
 		if(!$this->session->userdata('LOGGED')) {
 			$this->index();
@@ -373,6 +385,7 @@ class Report extends CI_Controller {
 						if($tipe=="mutasi_pk") $jndata = " WHERE jns_brg = '4'";
 						if($tipe=="mutasi_bs") $jndata = " WHERE jns_brg = '7'";
 						if($tipe=="mutasi_sp") $jndata = " WHERE jns_brg = '3A'";
+						if($tipe=="mutasi_wip") $jndata = " WHERE jns_brg = '10'";
 		
 						$sql .= " UNION SELECT kd_brg as kd_barang | , jns_brg as jns_barang, nm_brg, kd_satuan, '' penyesuaian |
 								  FROM tm_barang ".$jndata;
@@ -482,6 +495,7 @@ class Report extends CI_Controller {
 				elseif($tipe == "mutasi_pk") $judul = "Mutasi Peralatan Kantor";
 				elseif($tipe == "mutasi_bs") $judul = "Mutasi Barang Sisa & Scrap";
 				elseif($tipe == "mutasi_sp") $judul = "Mutasi Spare Part";
+				elseif($tipe == "mutasi_wip") $judul = "Mutasi WIP";
 
 	            $data = array(
 	            	"tipe" 			=> $tipe,

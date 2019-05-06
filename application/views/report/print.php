@@ -19,7 +19,7 @@ $border = '';
 if($jns_file == "xls") {
     $border = 'style="border: 1px solid black;"';
 }
-if (in_array($tipe, array("mutasi_bb", "mutasi_hp", "mutasi_bs", "mutasi_pk","mutasi_bp","mutasi_bm","mutasi_sp"))) { ?>
+if (in_array($tipe, array("mutasi_bb", "mutasi_hp", "mutasi_bs", "mutasi_pk","mutasi_bp","mutasi_bm","mutasi_sp","mutasi_wip"))) { ?>
     <table class="tabelPopUp" width="100%" style="font-size: 12px;">
         <thead>
             <?php

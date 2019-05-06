@@ -196,6 +196,9 @@ class M_report extends CI_Model {
                 case "mutasi_sp":
                     $jns_brg = " AND A.jns_barang = '3A' AND A.tipe IN ('GATE-IN','GATE-OUT','MUSNAH','RUSAK','MOVE-IN')";
                     break;
+                case "mutasi_wip":
+                    $jns_brg = " AND A.jns_barang = '10' AND A.tipe IN ('GATE-IN','GATE-OUT','MUSNAH','RUSAK','MOVE-IN')";
+                    break;
             }
             $sql = "SELECT a.kd_barang |, a.jns_barang, b.nm_brg, a.kd_satuan, '' penyesuaian |
                     FROM tr_inout a, tm_barang b
